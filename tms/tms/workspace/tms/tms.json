@@ -429,7 +429,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Commercial Reports",
-   "link_count": 3,
+   "link_count": 4,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -462,6 +462,17 @@
    "label": "TMS Regrinding Status",
    "link_count": 0,
    "link_to": "TMS Regrinding Status",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "TMS Tool Type",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Standard Versus Actual Tool Cost",
+   "link_count": 0,
+   "link_to": "TMS Standard Versus Actual Tool Cost",
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"

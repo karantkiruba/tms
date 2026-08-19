@@ -11,6 +11,7 @@
   "qty",
   "uom",
   "rate",
+  "amount",
   "cb_1",
   "serial_no",
   "physical_tool_code",
@@ -65,11 +66,20 @@
   },
   {
    "columns": 1,
-   "description": "Required when receiving from an external supply with no source warehouse.",
+   "description": "Read from the source warehouse. Tool cost comes from the purchase, manufacture or regrind that put the tool into stock.",
    "fieldname": "rate",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Rate"
+   "label": "Valuation Rate",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Value",
+   "read_only": 1
   },
   {
    "fieldname": "cb_1",

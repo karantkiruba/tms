@@ -31,6 +31,13 @@
   "cb_life",
   "standard_new_tool_cost",
   "lead_time_days",
+  "sb_actual",
+  "actual_avg_purchase_cost",
+  "last_purchase_cost",
+  "cb_actual",
+  "last_purchase_date",
+  "purchase_qty",
+  "cost_variance_pct",
   "sb_more",
   "remarks"
  ],
@@ -170,6 +177,47 @@
    "fieldname": "lead_time_days",
    "fieldtype": "Int",
    "label": "Lead Time (Days)"
+  },
+  {
+   "fieldname": "sb_actual",
+   "fieldtype": "Section Break",
+   "label": "Actual Purchase Cost"
+  },
+  {
+   "description": "Rolled up from submitted Purchase Receipts for items of this tool type.",
+   "fieldname": "actual_avg_purchase_cost",
+   "fieldtype": "Currency",
+   "label": "Average Purchase Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_purchase_cost",
+   "fieldtype": "Currency",
+   "label": "Last Purchase Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_actual",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_purchase_date",
+   "fieldtype": "Date",
+   "label": "Last Purchase Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "purchase_qty",
+   "fieldtype": "Float",
+   "label": "Quantity Purchased",
+   "read_only": 1
+  },
+  {
+   "description": "Average purchase cost against the standard new tool cost.",
+   "fieldname": "cost_variance_pct",
+   "fieldtype": "Percent",
+   "label": "Actual vs Standard (%)",
+   "read_only": 1
   },
   {
    "fieldname": "sb_more",

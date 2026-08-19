@@ -21,6 +21,7 @@
   "cb_wh",
   "target_warehouse",
   "sb_ref",
+  "purchase_receipt",
   "transfer_reference",
   "delivery_challan",
   "dispatch_date",
@@ -29,6 +30,8 @@
   "received_by",
   "sb_items",
   "items",
+  "sb_tot",
+  "total_receipt_value",
   "sb_more",
   "stock_entry",
   "remarks",
@@ -105,11 +108,12 @@
    "label": "Warehouses"
   },
   {
-   "description": "Leave blank for an external supply receipt.",
+   "description": "Where the tools are held now. Defaults to the Head Office Receiving Warehouse on the TMS Customer Location.",
    "fieldname": "source_warehouse",
    "fieldtype": "Link",
    "label": "Source Warehouse",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "reqd": 1
   },
   {
    "fieldname": "cb_wh",
@@ -126,6 +130,13 @@
    "fieldname": "sb_ref",
    "fieldtype": "Section Break",
    "label": "Dispatch Reference"
+  },
+  {
+   "description": "Optional cost lineage for newly purchased tools. Sets the source warehouse.",
+   "fieldname": "purchase_receipt",
+   "fieldtype": "Link",
+   "label": "Purchase Receipt",
+   "options": "Purchase Receipt"
   },
   {
    "fieldname": "transfer_reference",
@@ -169,6 +180,17 @@
    "label": "Items",
    "options": "TMS Tool Receipt Item",
    "reqd": 1
+  },
+  {
+   "fieldname": "sb_tot",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_receipt_value",
+   "fieldtype": "Currency",
+   "label": "Total Receipt Value",
+   "read_only": 1
   },
   {
    "fieldname": "sb_more",

@@ -164,18 +164,32 @@ def run_p1_flow(company=None):
 
 	out = {"pfep": pfep, "contract": contract}
 
+	# tools enter stock through a purchase, so their cost is never typed into TMS
+	ho = _ensure_head_office(company, abbr)
+	purchase = _purchase_tools(company, ho, today, [
+		{"item_code": DEMO_TOOL + "N", "qty": 1, "rate": 15000},
+		{"item_code": DEMO_INSERT_ITEM, "qty": 10, "rate": 500},
+	])
+	out["purchase_receipt"] = purchase
+
 	receipt = _submit(
 		"TMS Tool Receipt",
 		{
 			"posting_date": today, "company": company, "customer": customer,
 			"tms_location": DEMO_LOCATION, "receipt_type": "New Tool Supply",
+			"source_warehouse": ho, "purchase_receipt": purchase,
 			"items": [
-				{"item_code": DEMO_TOOL + "N", "qty": 1, "rate": 15000},
-				{"item_code": DEMO_INSERT_ITEM, "qty": 10, "rate": 500},
+				{"item_code": DEMO_TOOL + "N", "qty": 1},
+				{"item_code": DEMO_INSERT_ITEM, "qty": 10},
 			],
 		},
 	)
-	out["receipt"] = {"name": receipt.name, "stock_entry": receipt.stock_entry}
+	receipt.reload()
+	out["receipt"] = {
+		"name": receipt.name, "stock_entry": receipt.stock_entry,
+		"total_receipt_value": receipt.total_receipt_value,
+		"rates_from_purchase": [{"item": r.item_code, "rate": r.rate} for r in receipt.items],
+	}
 
 	issue = _submit(
 		"TMS Tool Issue",
@@ -787,12 +801,9 @@ def check_regrind_valuation(company=None):
 	base = {"posting_date": today, "company": company, "customer": customer,
 	        "tms_location": DEMO_LOCATION}
 
-	receipt = _submit("TMS Tool Receipt", dict(base, **{
-		"receipt_type": "New Tool Supply", "target_warehouse": ho,
-		"items": [{"item_code": DEMO_TOOL_2 + "N", "qty": 1, "rate": 15000}],
-	}))
-	# receipt lands in the main warehouse by design, so move it to Head Office
-	frappe.db.set_value("TMS Customer Location", DEMO_LOCATION, "head_office_warehouse", ho)
+	purchase = _purchase_tools(company, ho, today,
+	                           [{"item_code": DEMO_TOOL_2 + "N", "qty": 1, "rate": 15000}])
+	receipt = frappe._dict({"name": purchase, "target_warehouse": ho, "stock_entry": None})
 
 	cycle = frappe.new_doc("TMS Regrind Cycle")
 	cycle.update({
@@ -813,9 +824,10 @@ def check_regrind_valuation(company=None):
 		)
 
 	result = {
-		"receipt": receipt.name,
-		"warehouse": receipt.target_warehouse,
-		"new_tool_rate": rate_for(receipt.stock_entry, DEMO_TOOL_2 + "N"),
+		"purchase_receipt": purchase,
+		"warehouse": ho,
+		"new_tool_rate": flt(frappe.db.get_value(
+			"Bin", {"item_code": DEMO_TOOL_2 + "N", "warehouse": ho}, "valuation_rate")),
 		"rgp_rate": rate_for(cycle.rgp_stock_entry, DEMO_TOOL_2 + "RGP"),
 		"rgf_rate": rate_for(cycle.rgf_stock_entry, DEMO_TOOL_2 + "RGF"),
 		"regrind_cost": cycle.regrind_cost,
@@ -922,6 +934,172 @@ def run_p4_flow(company=None):
 		"lines_with_variance": recon.lines_with_variance,
 		"status": recon.status,
 	}
+
+	frappe.db.commit()
+	return out
+
+
+# ------------------------------------------------------------- purchase helper
+
+DEMO_SUPPLIER = DEMO_PREFIX + "Supplier"
+
+
+def _ensure_supplier():
+	"""Reuse an existing supplier for the demo purchase.
+
+	Supplier naming on this site uses prefixed series whose counters are missing
+	from tabSeries, so creating one collides with an imported record. The fixture
+	has no need for its own supplier anyway.
+	"""
+	existing = frappe.db.get_value("Supplier", {"supplier_name": DEMO_SUPPLIER}, "name")
+	if existing:
+		return existing
+
+	any_supplier = frappe.db.get_value("Supplier", {"disabled": 0}, "name")
+	if any_supplier:
+		return any_supplier
+
+	doc = frappe.new_doc("Supplier")
+	doc.supplier_name = DEMO_SUPPLIER
+	doc.supplier_group = frappe.db.get_value("Supplier Group", {"is_group": 0}, "name")
+	doc.insert(ignore_permissions=True)
+	return doc.name
+
+
+def _purchase_tools(company, warehouse, posting_date, lines):
+	"""Buy tools into stock so their cost comes from the purchase, not from TMS.
+
+	This is the production path: a Purchase Receipt sets the valuation, and the
+	TMS Tool Receipt afterwards only transfers that value to the customer site.
+	"""
+	supplier = _ensure_supplier()
+
+	pr = frappe.new_doc("Purchase Receipt")
+	pr.supplier = supplier
+	pr.company = company
+	pr.posting_date = posting_date
+	pr.set_posting_time = 1
+
+	for line in lines:
+		pr.append("items", {
+			"item_code": line["item_code"],
+			"qty": line["qty"],
+			"rate": line["rate"],
+			"warehouse": warehouse,
+		})
+
+	pr.insert(ignore_permissions=True)
+	pr.submit()
+	return pr.name
+
+
+# --------------------------------------------------- purchase-cost flow check
+
+DEMO_TOOL_TYPE_3 = DEMO_PREFIX + "DRILL16"
+DEMO_TOOL_3 = DEMO_PREFIX + "T0004"
+
+
+def check_purchase_cost_flow(company=None):
+	"""Prove that tool cost comes from the purchase and is never typed.
+
+	Standard cost is set to 15,000 as the planning benchmark, the tools are then
+	actually bought at 16,500, and the Tool Type rollup should show the real
+	figure and a ten percent variance.
+	"""
+	company = company or frappe.db.get_value("Company", {}, "name")
+	abbr = frappe.db.get_value("Company", company, "abbr")
+	today = frappe.utils.nowdate()
+	customer = frappe.db.get_value("Customer", {"customer_name": DEMO_CUSTOMER}, "name")
+	ho = _ensure_head_office(company, abbr)
+
+	_ensure_category()
+	if not frappe.db.exists("TMS Tool Type", DEMO_TOOL_TYPE_3):
+		tt = frappe.new_doc("TMS Tool Type")
+		tt.update({
+			"tool_type_code": DEMO_TOOL_TYPE_3, "tool_type_name": "Demo Carbide Drill 16mm",
+			"tool_category": DEMO_CATEGORY, "is_regrindable": 1, "max_regrind_count": 4,
+			"planned_new_tool_life": 6000, "planned_reground_tool_life": 4800,
+			"standard_new_tool_cost": 15000, "standard_regrind_cost": 2500,
+			"default_uom": "Nos",
+		})
+		tt.insert(ignore_permissions=True)
+
+	# reuse a draft from an earlier run only when it names the right tool type
+	existing = frappe.db.exists("TMS Tool Registration",
+	                            {"physical_tool_code": DEMO_TOOL_3, "docstatus": ("<", 2),
+	                             "tool_type": DEMO_TOOL_TYPE_3})
+	if existing:
+		reg = frappe.get_doc("TMS Tool Registration", existing)
+		if reg.docstatus == 0:
+			reg.submit()
+	else:
+		reg = frappe.new_doc("TMS Tool Registration")
+		reg.update({
+			"physical_tool_code": DEMO_TOOL_3, "tool_type": DEMO_TOOL_TYPE_3,
+			"tool_description": "Demo Carbide Drill 16mm", "company": company,
+			"item_group": "Consumable", "stock_uom": "Nos", "gst_hsn_code": DEMO_HSN,
+		})
+		reg.fetch_conditions()
+		reg.insert(ignore_permissions=True)
+		reg.submit()
+
+	out = {}
+
+	# ---- bought at 16,500, above the 15,000 standard
+	purchase = _purchase_tools(company, ho, today,
+	                           [{"item_code": DEMO_TOOL_3 + "N", "qty": 1, "rate": 16500}])
+	out["purchase_receipt"] = purchase
+
+	tool_type = frappe.db.get_value(
+		"TMS Tool Type", DEMO_TOOL_TYPE_3,
+		["standard_new_tool_cost", "actual_avg_purchase_cost", "last_purchase_cost",
+		 "purchase_qty", "cost_variance_pct"], as_dict=True
+	)
+	out["tool_type_rollup"] = tool_type
+	out["rollup_correct"] = (
+		abs(flt(tool_type.actual_avg_purchase_cost) - 16500) < 0.01
+		and abs(flt(tool_type.cost_variance_pct) - 10.0) < 0.01
+	)
+
+	# ---- the TMS receipt carries no rate; it reads the purchase value
+	receipt = _submit("TMS Tool Receipt", {
+		"posting_date": today, "company": company, "customer": customer,
+		"tms_location": DEMO_LOCATION, "receipt_type": "New Tool Supply",
+		"source_warehouse": ho, "purchase_receipt": purchase,
+		"items": [{"item_code": DEMO_TOOL_3 + "N", "qty": 1}],
+	})
+	receipt.reload()
+	out["receipt"] = {
+		"name": receipt.name,
+		"rate_read_from_stock": receipt.items[0].rate,
+		"total_receipt_value": receipt.total_receipt_value,
+	}
+	out["receipt_cost_from_purchase"] = abs(flt(receipt.items[0].rate) - 16500) < 0.01
+
+	# ---- a receipt with nowhere to draw stock from is refused
+	blocked = frappe.new_doc("TMS Tool Receipt")
+	blocked.update({
+		"posting_date": today, "company": company, "customer": customer,
+		"tms_location": DEMO_LOCATION, "receipt_type": "Inter-location Transfer",
+		"items": [{"item_code": DEMO_TOOL_3 + "N", "qty": 1}],
+	})
+	frappe.db.set_value("TMS Customer Location", DEMO_LOCATION, "head_office_warehouse", None)
+	try:
+		blocked.insert(ignore_permissions=True)
+		out["no_source_blocked"] = False
+	except frappe.ValidationError as exc:
+		out["no_source_blocked"] = True
+		out["no_source_message"] = str(exc).split("\n")[0][:130]
+	finally:
+		frappe.db.set_value("TMS Customer Location", DEMO_LOCATION,
+		                    "head_office_warehouse", ho)
+
+	# ---- issue value downstream must equal the purchase value
+	out["issue_value_source"] = flt(frappe.db.get_value(
+		"Bin", {"item_code": DEMO_TOOL_3 + "N",
+		        "warehouse": frappe.db.get_value("TMS Customer Location", DEMO_LOCATION,
+		                                         "main_warehouse")},
+		"valuation_rate"))
 
 	frappe.db.commit()
 	return out

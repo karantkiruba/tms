@@ -48,9 +48,9 @@ def make_transfer(doc, rows, source_warehouse, target_warehouse, purpose="Materi
 		if purpose in ("Material Transfer", "Material Receipt"):
 			item["t_warehouse"] = target_warehouse
 
-		if flt(getattr(row, "rate", 0)):
-			item["basic_rate"] = flt(row.rate)
-			item["allow_zero_valuation_rate"] = 0
+		# No rate is passed in. A transfer takes the valuation already held at the
+		# source warehouse, which traces back to the purchase, manufacture or
+		# regrind completion that put the tool into stock.
 
 		if getattr(row, "serial_no", None):
 			item["use_serial_batch_fields"] = 1
@@ -107,6 +107,17 @@ def cancel_linked_stock_entry(doc):
 def get_available_qty(item_code, warehouse):
 	return flt(frappe.db.get_value("Bin", {"item_code": item_code, "warehouse": warehouse},
 	                               "actual_qty"))
+
+
+def get_valuation_rate(item_code, warehouse):
+	"""Current valuation of an item at a warehouse.
+
+	This is the purchase-derived cost the stock ledger holds, and is what a
+	transfer will carry. TMS reads it rather than letting anyone type a cost.
+	"""
+	return flt(frappe.db.get_value(
+		"Bin", {"item_code": item_code, "warehouse": warehouse}, "valuation_rate"
+	))
 
 
 def validate_stock_available(rows, warehouse):

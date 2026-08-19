@@ -253,3 +253,12 @@ app_license = "mit"
 
 after_install = "tms.setup.install.after_install"
 after_migrate = "tms.setup.install.after_migrate"
+
+# Tool cost is never typed. It follows the purchase that put the tool into
+# stock, so the Tool Type rollup refreshes whenever a Purchase Receipt moves.
+doc_events = {
+	"Purchase Receipt": {
+		"on_submit": "tms.utils.costing.update_from_purchase_receipt",
+		"on_cancel": "tms.utils.costing.update_from_purchase_receipt",
+	},
+}
