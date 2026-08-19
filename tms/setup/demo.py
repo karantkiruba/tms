@@ -828,3 +828,100 @@ def check_regrind_valuation(company=None):
 	)
 	frappe.db.commit()
 	return result
+
+
+# --------------------------------------------------------------- P4 flow test
+
+TMS_REPORTS = [
+	"TMS Stock Summary",
+	"TMS Physical Tool Register",
+	"TMS Stock Movement",
+	"TMS Component Wise Tool Issue",
+	"TMS Monthly Tool Issue Statement",
+	"TMS Tool Life Achievement",
+	"TMS PFEP Versus Actual Consumption",
+	"TMS Regrinding Status",
+	"TMS CPC Production and Billing",
+	"TMS Tool Issue Value Versus CPC Billing",
+	"TMS Stock Coverage and Reorder",
+]
+
+
+def run_p4_flow(company=None):
+	"""Execute every report, then the planning engine and a stock count."""
+	company = company or frappe.db.get_value("Company", {}, "name")
+	customer = frappe.db.get_value("Customer", {"customer_name": DEMO_CUSTOMER}, "name")
+	today = frappe.utils.nowdate()
+	month_start = frappe.utils.get_first_day(today)
+	month_end = frappe.utils.get_last_day(today)
+
+	out = {"reports": {}}
+
+	base_filters = {
+		"from_date": month_start, "to_date": month_end,
+		"tms_location": DEMO_LOCATION, "working_days": 26,
+	}
+
+	from frappe.desk.query_report import run as run_report
+
+	for report in TMS_REPORTS:
+		try:
+			result = run_report(report, filters=base_filters, ignore_prepared_report=True)
+			out["reports"][report] = {
+				"columns": len(result.get("columns") or []),
+				"rows": len(result.get("result") or []),
+			}
+		except Exception as exc:
+			out["reports"][report] = {
+				"error": "{0}: {1}".format(type(exc).__name__, str(exc).split("\n")[0][:140])
+			}
+
+	# ---- planning engine
+	requirement = frappe.new_doc("TMS Tool Requirement")
+	requirement.update({
+		"posting_date": today, "company": company, "customer": customer,
+		"tms_location": DEMO_LOCATION, "required_date": today,
+		"monthly_production_plan": 25000, "working_days": 26,
+		"requirement_source": "PFEP",
+	})
+	rows = requirement.calculate_requirement()
+	requirement.insert(ignore_permissions=True)
+	requirement.submit()
+	requirement.reload()
+
+	out["requirement"] = {
+		"name": requirement.name, "rows": rows,
+		"total_net_requirement": requirement.total_net_requirement,
+		"shortage_lines": requirement.shortage_lines,
+		"lines": [{
+			"tool_type": r.tool_type, "item": r.item_code,
+			"gross": r.gross_requirement, "available": r.available_qty,
+			"net": r.net_requirement, "safe_days": round(flt(r.safe_running_days), 1),
+			"status": r.stock_status, "action": r.recommended_action,
+		} for r in requirement.items],
+	}
+
+	if any(flt(r.requested_qty) > 0 and r.item_code for r in requirement.items):
+		out["material_request"] = requirement.make_material_request()
+
+	# ---- stock reconciliation
+	recon = frappe.new_doc("TMS Stock Reconciliation")
+	recon.update({
+		"posting_date": today, "company": company, "customer": customer,
+		"tms_location": DEMO_LOCATION, "counted_by": "Administrator",
+		"include_main_warehouse": 1, "include_shopfloor_warehouse": 1,
+		"include_used_tool_warehouse": 1,
+	})
+	counted = recon.fetch_stock()
+	recon.insert(ignore_permissions=True)
+	recon.submit()
+	recon.reload()
+
+	out["reconciliation"] = {
+		"name": recon.name, "lines_counted": counted,
+		"lines_with_variance": recon.lines_with_variance,
+		"status": recon.status,
+	}
+
+	frappe.db.commit()
+	return out

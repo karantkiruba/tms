@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\": \"tms_header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Tool Management System</b></span>\", \"col\": 12}}, {\"id\": \"card_0\", \"type\": \"card\", \"data\": {\"card_name\": \"Masters\", \"col\": 4}}, {\"id\": \"card_1\", \"type\": \"card\", \"data\": {\"card_name\": \"Tool Registry\", \"col\": 4}}, {\"id\": \"card_2\", \"type\": \"card\", \"data\": {\"card_name\": \"Planning and Contracts\", \"col\": 4}}, {\"id\": \"card_3\", \"type\": \"card\", \"data\": {\"card_name\": \"Tool Movement\", \"col\": 4}}, {\"id\": \"card_4\", \"type\": \"card\", \"data\": {\"card_name\": \"Shop Floor and Life\", \"col\": 4}}, {\"id\": \"card_5\", \"type\": \"card\", \"data\": {\"card_name\": \"Used Tool Management\", \"col\": 4}}, {\"id\": \"card_6\", \"type\": \"card\", \"data\": {\"card_name\": \"Regrinding\", \"col\": 4}}, {\"id\": \"card_7\", \"type\": \"card\", \"data\": {\"card_name\": \"Production and Billing\", \"col\": 4}}, {\"id\": \"card_8\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
+ "content": "[{\"id\": \"tms_header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Tool Management System</b></span>\", \"col\": 12}}, {\"id\": \"nc_0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"TMS Tool Issues\", \"col\": 4}}, {\"id\": \"nc_1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"TMS Tool Issue Value\", \"col\": 4}}, {\"id\": \"nc_2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"TMS Tools Pending Regrinding\", \"col\": 4}}, {\"id\": \"nc_3\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"TMS Tools Near Maximum Regrind\", \"col\": 4}}, {\"id\": \"nc_4\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"TMS CPC Billing Value\", \"col\": 4}}, {\"id\": \"nc_5\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"TMS Open Tool Requirements\", \"col\": 4}}, {\"id\": \"spacer\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"card_0\", \"type\": \"card\", \"data\": {\"card_name\": \"Masters\", \"col\": 4}}, {\"id\": \"card_1\", \"type\": \"card\", \"data\": {\"card_name\": \"Tool Registry\", \"col\": 4}}, {\"id\": \"card_2\", \"type\": \"card\", \"data\": {\"card_name\": \"Planning and Contracts\", \"col\": 4}}, {\"id\": \"card_3\", \"type\": \"card\", \"data\": {\"card_name\": \"Tool Movement\", \"col\": 4}}, {\"id\": \"card_4\", \"type\": \"card\", \"data\": {\"card_name\": \"Shop Floor and Life\", \"col\": 4}}, {\"id\": \"card_5\", \"type\": \"card\", \"data\": {\"card_name\": \"Used Tool and Regrinding\", \"col\": 4}}, {\"id\": \"card_6\", \"type\": \"card\", \"data\": {\"card_name\": \"Production and Billing\", \"col\": 4}}, {\"id\": \"card_7\", \"type\": \"card\", \"data\": {\"card_name\": \"Stock Reports\", \"col\": 4}}, {\"id\": \"card_8\", \"type\": \"card\", \"data\": {\"card_name\": \"Usage and Life Reports\", \"col\": 4}}, {\"id\": \"card_9\", \"type\": \"card\", \"data\": {\"card_name\": \"Commercial Reports\", \"col\": 4}}, {\"id\": \"card_10\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
  "creation": "2026-08-18 10:00:00.000000",
  "docstatus": 0,
  "doctype": "Workspace",
@@ -131,7 +131,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Planning and Contracts",
-   "link_count": 2,
+   "link_count": 3,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -153,6 +153,17 @@
    "label": "CPC Contract",
    "link_count": 0,
    "link_to": "CPC Contract",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Requirement",
+   "link_count": 0,
+   "link_to": "TMS Tool Requirement",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -231,8 +242,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Used Tool Management",
-   "link_count": 2,
+   "label": "Used Tool and Regrinding",
+   "link_count": 4,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -246,25 +257,6 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
-  },
-  {
-   "dependencies": "",
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "TMS Tool Scrap",
-   "link_count": 0,
-   "link_to": "TMS Tool Scrap",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Regrinding",
-   "link_count": 2,
-   "onboard": 0,
-   "type": "Card Break"
   },
   {
    "dependencies": "",
@@ -284,6 +276,17 @@
    "label": "TMS Regrind Cycle",
    "link_count": 0,
    "link_to": "TMS Regrind Cycle",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Scrap",
+   "link_count": 0,
+   "link_to": "TMS Tool Scrap",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -321,8 +324,153 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Stock Reports",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "Item",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Stock Summary",
+   "link_count": 0,
+   "link_to": "TMS Stock Summary",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Stock Entry",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Stock Movement",
+   "link_count": 0,
+   "link_to": "TMS Stock Movement",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "Item",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Physical Tool Register",
+   "link_count": 0,
+   "link_to": "TMS Physical Tool Register",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "TMS Customer Location",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Stock Coverage and Reorder",
+   "link_count": 0,
+   "link_to": "TMS Stock Coverage and Reorder",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Usage and Life Reports",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "TMS Tool Issue",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Component Wise Tool Issue",
+   "link_count": 0,
+   "link_to": "TMS Component Wise Tool Issue",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "TMS Tool Issue",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Monthly Tool Issue Statement",
+   "link_count": 0,
+   "link_to": "TMS Monthly Tool Issue Statement",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "TMS Tool Removal",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Tool Life Achievement",
+   "link_count": 0,
+   "link_to": "TMS Tool Life Achievement",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "TMS Tool Issue",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS PFEP Versus Actual Consumption",
+   "link_count": 0,
+   "link_to": "TMS PFEP Versus Actual Consumption",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Commercial Reports",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "TMS Production Declaration",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS CPC Production and Billing",
+   "link_count": 0,
+   "link_to": "TMS CPC Production and Billing",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "TMS CPC Billing Statement",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Tool Issue Value Versus CPC Billing",
+   "link_count": 0,
+   "link_to": "TMS Tool Issue Value Versus CPC Billing",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "TMS Regrind Cycle",
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "TMS Regrinding Status",
+   "link_count": 0,
+   "link_to": "TMS Regrinding Status",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Setup",
-   "link_count": 1,
+   "link_count": 2,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -336,13 +484,49 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Stock Reconciliation",
+   "link_count": 0,
+   "link_to": "TMS Stock Reconciliation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
  "modified": "2026-08-18 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS",
- "number_cards": [],
+ "number_cards": [
+  {
+   "label": "TMS Tool Issues",
+   "number_card_name": "TMS Tool Issues"
+  },
+  {
+   "label": "TMS Tool Issue Value",
+   "number_card_name": "TMS Tool Issue Value"
+  },
+  {
+   "label": "TMS Tools Pending Regrinding",
+   "number_card_name": "TMS Tools Pending Regrinding"
+  },
+  {
+   "label": "TMS Tools Near Maximum Regrind",
+   "number_card_name": "TMS Tools Near Maximum Regrind"
+  },
+  {
+   "label": "TMS CPC Billing Value",
+   "number_card_name": "TMS CPC Billing Value"
+  },
+  {
+   "label": "TMS Open Tool Requirements",
+   "number_card_name": "TMS Open Tool Requirements"
+  }
+ ],
  "owner": "Administrator",
  "parent_page": "",
  "public": 1,
@@ -376,8 +560,8 @@
   },
   {
    "color": "Purple",
-   "label": "PFEP Tooling Plan",
-   "link_to": "PFEP Tooling Plan",
+   "label": "Tool Requirement",
+   "link_to": "TMS Tool Requirement",
    "type": "DocType"
   }
  ],

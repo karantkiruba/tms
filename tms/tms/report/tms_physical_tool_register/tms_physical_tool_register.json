@@ -1,0 +1,58 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2026-08-18 10:00:00.000000",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "tool_type",
+   "fieldtype": "Link",
+   "label": "Tool Type",
+   "options": "TMS Tool Type"
+  },
+  {
+   "fieldname": "physical_tool_code",
+   "fieldtype": "Data",
+   "label": "Physical Tool Code"
+  },
+  {
+   "default": 1,
+   "fieldname": "only_in_stock",
+   "fieldtype": "Check",
+   "label": "Only Tools In Stock"
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS Physical Tool Register",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Item",
+ "report_name": "TMS Physical Tool Register",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "TMS Manager"
+  },
+  {
+   "role": "TMS Site Supervisor"
+  },
+  {
+   "role": "TMS Commercial User"
+  },
+  {
+   "role": "TMS Engineering User"
+  },
+  {
+   "role": "TMS Head Office User"
+  },
+  {
+   "role": "TMS Site User"
+  }
+ ]
+}

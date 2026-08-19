@@ -270,6 +270,44 @@ CUSTOM_FIELDS = {
 			"read_only": 1,
 		},
 	],
+	"Stock Reconciliation": [
+		{
+			"fieldname": "tms_section",
+			"label": "Tool Management",
+			"fieldtype": "Section Break",
+			"insert_after": "company",
+			"collapsible": 1,
+		},
+		{
+			"fieldname": "tms_reference_doctype",
+			"label": "TMS Reference Type",
+			"fieldtype": "Link",
+			"options": "DocType",
+			"insert_after": "tms_section",
+			"read_only": 1,
+		},
+		{
+			"fieldname": "tms_reference_name",
+			"label": "TMS Reference",
+			"fieldtype": "Dynamic Link",
+			"options": "tms_reference_doctype",
+			"insert_after": "tms_reference_doctype",
+			"read_only": 1,
+		},
+		{
+			"fieldname": "tms_column",
+			"fieldtype": "Column Break",
+			"insert_after": "tms_reference_name",
+		},
+		{
+			"fieldname": "tms_location",
+			"label": "TMS Customer Location",
+			"fieldtype": "Link",
+			"options": "TMS Customer Location",
+			"insert_after": "tms_column",
+			"read_only": 1,
+		},
+	],
 }
 
 
@@ -285,7 +323,97 @@ def setup_tms():
 	create_roles()
 	create_custom_fields(CUSTOM_FIELDS, ignore_validate=True)
 	seed_tool_conditions()
+	create_number_cards()
+	sync_workspace()
 	frappe.db.commit()
+
+
+def sync_workspace():
+	"""Re-import the TMS workspace on every migrate.
+
+	Frappe guards workspace imports so user layout edits survive an update. TMS
+	owns its workspace definition, and new doctypes and reports have to appear in
+	it, so it is imported explicitly rather than left to the guarded path.
+	"""
+	import os
+
+	from frappe.modules.import_file import import_file_by_path
+
+	path = os.path.join(
+		frappe.get_app_path("tms"), "tms", "workspace", "tms", "tms.json"
+	)
+	if os.path.exists(path):
+		import_file_by_path(path, force=True, reset_permissions=False)
+
+
+NUMBER_CARDS = [
+	{
+		"label": "TMS Tool Issues",
+		"document_type": "TMS Tool Issue",
+		"function": "Count",
+		"filters_json": '[["TMS Tool Issue","docstatus","=",1]]',
+		"color": "#7575ff",
+	},
+	{
+		"label": "TMS Tool Issue Value",
+		"document_type": "TMS Tool Issue",
+		"function": "Sum",
+		"aggregate_function_based_on": "total_issue_value",
+		"filters_json": '[["TMS Tool Issue","docstatus","=",1]]',
+		"color": "#29cd42",
+	},
+	{
+		"label": "TMS Tools Pending Regrinding",
+		"document_type": "TMS Regrind Cycle",
+		"function": "Count",
+		"filters_json": '[["TMS Regrind Cycle","docstatus","=",1],'
+		                '["TMS Regrind Cycle","status","=","Pending Regrinding"]]',
+		"color": "#ff8c37",
+	},
+	{
+		"label": "TMS Tools Near Maximum Regrind",
+		"document_type": "TMS Regrind Cycle",
+		"function": "Count",
+		"filters_json": '[["TMS Regrind Cycle","docstatus","=",1],'
+		                '["TMS Regrind Cycle","remaining_regrinds","<=",1]]',
+		"color": "#cb2929",
+	},
+	{
+		"label": "TMS CPC Billing Value",
+		"document_type": "TMS CPC Billing Statement",
+		"function": "Sum",
+		"aggregate_function_based_on": "total_billing_value",
+		"filters_json": '[["TMS CPC Billing Statement","docstatus","=",1]]',
+		"color": "#00a65a",
+	},
+	{
+		"label": "TMS Open Tool Requirements",
+		"document_type": "TMS Tool Requirement",
+		"function": "Count",
+		"filters_json": '[["TMS Tool Requirement","docstatus","=",1],'
+		                '["TMS Tool Requirement","status","=","Approved"]]',
+		"color": "#449cf0",
+	},
+]
+
+
+def create_number_cards():
+	"""Dashboard cards for the TMS workspace (BRS section 46)."""
+	for card in NUMBER_CARDS:
+		# a Number Card is named from its label, so that is the identity to check
+		if frappe.db.exists("Number Card", card["label"]):
+			continue
+		if not frappe.db.exists("DocType", card["document_type"]):
+			continue
+
+		doc = frappe.new_doc("Number Card")
+		doc.update(card)
+		doc.module = "TMS"
+		doc.type = "Document Type"
+		doc.is_public = 1
+		doc.show_percentage_stats = 1
+		doc.stats_time_interval = "Monthly"
+		doc.insert(ignore_permissions=True)
 
 
 def create_roles():
