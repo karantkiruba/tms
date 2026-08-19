@@ -1,0 +1,229 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{tms_location}-{component_code}",
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_id",
+  "component_code",
+  "component_name",
+  "customer",
+  "tms_location",
+  "cb_id",
+  "customer_part_number",
+  "drawing_number",
+  "revision",
+  "billing_uom",
+  "billing_item",
+  "is_active",
+  "sb_route",
+  "production_line",
+  "operations",
+  "sb_more",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_id",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "component_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "CPC Component Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "component_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Component Description",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tms_location",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "TMS Customer Location",
+   "options": "TMS Customer Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_id",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_part_number",
+   "fieldtype": "Data",
+   "label": "Customer Part Number"
+  },
+  {
+   "fieldname": "drawing_number",
+   "fieldtype": "Data",
+   "label": "Drawing Number"
+  },
+  {
+   "fieldname": "revision",
+   "fieldtype": "Data",
+   "label": "Revision"
+  },
+  {
+   "fieldname": "billing_uom",
+   "fieldtype": "Link",
+   "label": "Billing UOM",
+   "options": "UOM"
+  },
+  {
+   "description": "Service item used on the Sales Invoice for this component's CPC billing.",
+   "fieldname": "billing_item",
+   "fieldtype": "Link",
+   "label": "Billing Item",
+   "options": "Item"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Active"
+  },
+  {
+   "fieldname": "sb_route",
+   "fieldtype": "Section Break",
+   "label": "Applicable Machines and Operations"
+  },
+  {
+   "fieldname": "production_line",
+   "fieldtype": "Link",
+   "label": "Default Production Line",
+   "options": "TMS Production Line"
+  },
+  {
+   "fieldname": "operations",
+   "fieldtype": "Table",
+   "label": "Operations",
+   "options": "CPC Component Operation"
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "CPC Component",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Commercial User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Engineering User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site Supervisor",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Head Office User",
+   "share": 1
+  }
+ ],
+ "search_fields": "component_code,component_name,customer",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "component_name",
+ "track_changes": 1
+}

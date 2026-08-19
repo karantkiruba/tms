@@ -1,0 +1,408 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_id",
+  "naming_series",
+  "posting_date",
+  "posting_time",
+  "shift",
+  "company",
+  "cb_id",
+  "customer",
+  "tms_location",
+  "cpc_contract",
+  "sb_usage",
+  "cpc_component",
+  "production_line",
+  "cb_usage",
+  "machine",
+  "operation",
+  "sb_wh",
+  "source_warehouse",
+  "cb_wh",
+  "target_warehouse",
+  "sb_add",
+  "is_additional_issue",
+  "additional_reason",
+  "cb_add",
+  "original_tool_issue",
+  "pfep",
+  "sb_items",
+  "items",
+  "sb_tot",
+  "total_issue_value",
+  "cb_tot",
+  "total_additional_qty",
+  "sb_people",
+  "issued_by",
+  "cb_people",
+  "received_by",
+  "sb_more",
+  "stock_entry",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_id",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "TISS-.YYYY.-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "TISS-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "default": "Now",
+   "fieldname": "posting_time",
+   "fieldtype": "Time",
+   "label": "Posting Time"
+  },
+  {
+   "fieldname": "shift",
+   "fieldtype": "Select",
+   "label": "Shift",
+   "options": "\nShift A\nShift B\nShift C\nGeneral"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_id",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tms_location",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "TMS Customer Location",
+   "options": "TMS Customer Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cpc_contract",
+   "fieldtype": "Link",
+   "label": "CPC Contract",
+   "options": "CPC Contract",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_usage",
+   "fieldtype": "Section Break",
+   "label": "Production Usage"
+  },
+  {
+   "fieldname": "cpc_component",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "CPC Component",
+   "options": "CPC Component",
+   "reqd": 1
+  },
+  {
+   "fieldname": "production_line",
+   "fieldtype": "Link",
+   "label": "Production Line",
+   "options": "TMS Production Line"
+  },
+  {
+   "fieldname": "cb_usage",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "machine",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Machine",
+   "options": "TMS Customer Machine",
+   "reqd": 1
+  },
+  {
+   "fieldname": "operation",
+   "fieldtype": "Link",
+   "label": "Operation",
+   "options": "TMS Operation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_wh",
+   "fieldtype": "Section Break",
+   "label": "Warehouses"
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_wh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "label": "Shopfloor Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_add",
+   "fieldtype": "Section Break",
+   "label": "Additional Issue"
+  },
+  {
+   "default": "0",
+   "description": "Issue over and above the standard PFEP requirement (BRS section 18).",
+   "fieldname": "is_additional_issue",
+   "fieldtype": "Check",
+   "label": "Additional Issue"
+  },
+  {
+   "depends_on": "eval:doc.is_additional_issue",
+   "fieldname": "additional_reason",
+   "fieldtype": "Select",
+   "label": "Reason",
+   "mandatory_depends_on": "eval:doc.is_additional_issue",
+   "options": "\nPremature Wear\nTool Breakage\nCustomer Process Change\nMachine Condition\nMaterial Variation\nTrial\nEngineering Change\nCustomer Requested Change\nOther"
+  },
+  {
+   "fieldname": "cb_add",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.is_additional_issue",
+   "fieldname": "original_tool_issue",
+   "fieldtype": "Link",
+   "label": "Original Tool Issue",
+   "options": "TMS Tool Issue"
+  },
+  {
+   "fieldname": "pfep",
+   "fieldtype": "Link",
+   "label": "Applicable PFEP",
+   "options": "PFEP Tooling Plan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_items",
+   "fieldtype": "Section Break",
+   "label": "Tools Issued"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "TMS Tool Issue Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_tot",
+   "fieldtype": "Section Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_issue_value",
+   "fieldtype": "Currency",
+   "label": "Total Issue Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_tot",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_additional_qty",
+   "fieldtype": "Float",
+   "label": "Total Additional Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_people",
+   "fieldtype": "Section Break",
+   "label": "Issued and Received"
+  },
+  {
+   "fieldname": "issued_by",
+   "fieldtype": "Link",
+   "label": "Issued By",
+   "options": "User"
+  },
+  {
+   "fieldname": "cb_people",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "received_by",
+   "fieldtype": "Data",
+   "label": "Received By"
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "stock_entry",
+   "fieldtype": "Link",
+   "label": "Stock Entry",
+   "no_copy": 1,
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "TMS Tool Issue",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS Tool Issue",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site Supervisor",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Commercial User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Engineering User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Head Office User",
+   "share": 1
+  }
+ ],
+ "search_fields": "cpc_component,machine,tms_location",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,280 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:tool_type_code",
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_id",
+  "tool_type_code",
+  "tool_type_name",
+  "tool_category",
+  "cb_id",
+  "is_active",
+  "default_uom",
+  "manufacturer",
+  "sb_spec",
+  "tool_specification",
+  "cb_spec",
+  "tool_material",
+  "number_of_indexes",
+  "sb_regrind",
+  "is_regrindable",
+  "max_regrind_count",
+  "cb_regrind",
+  "standard_regrind_cost",
+  "sb_life",
+  "planned_new_tool_life",
+  "planned_reground_tool_life",
+  "cb_life",
+  "standard_new_tool_cost",
+  "lead_time_days",
+  "sb_more",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_id",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tool_type_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tool Type Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "tool_type_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tool Type Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tool_category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tool Category",
+   "options": "TMS Tool Category"
+  },
+  {
+   "fieldname": "cb_id",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Active"
+  },
+  {
+   "fieldname": "default_uom",
+   "fieldtype": "Link",
+   "label": "Default UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "manufacturer",
+   "fieldtype": "Link",
+   "label": "Manufacturer",
+   "options": "Manufacturer"
+  },
+  {
+   "fieldname": "sb_spec",
+   "fieldtype": "Section Break",
+   "label": "Specification"
+  },
+  {
+   "fieldname": "tool_specification",
+   "fieldtype": "Small Text",
+   "label": "Tool Specification"
+  },
+  {
+   "fieldname": "cb_spec",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tool_material",
+   "fieldtype": "Data",
+   "label": "Tool Material"
+  },
+  {
+   "default": "0",
+   "description": "Applicable to indexable tooling such as inserts.",
+   "fieldname": "number_of_indexes",
+   "fieldtype": "Int",
+   "label": "Number of Indexes"
+  },
+  {
+   "fieldname": "sb_regrind",
+   "fieldtype": "Section Break",
+   "label": "Regrinding"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_regrindable",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Regrindable"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.is_regrindable",
+   "fieldname": "max_regrind_count",
+   "fieldtype": "Int",
+   "label": "Maximum Regrind Count"
+  },
+  {
+   "fieldname": "cb_regrind",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.is_regrindable",
+   "fieldname": "standard_regrind_cost",
+   "fieldtype": "Currency",
+   "label": "Standard Regrind Cost"
+  },
+  {
+   "fieldname": "sb_life",
+   "fieldtype": "Section Break",
+   "label": "Planned Life and Cost"
+  },
+  {
+   "description": "Expected number of components produced by a new tool.",
+   "fieldname": "planned_new_tool_life",
+   "fieldtype": "Float",
+   "label": "Planned New Tool Life"
+  },
+  {
+   "depends_on": "eval:doc.is_regrindable",
+   "fieldname": "planned_reground_tool_life",
+   "fieldtype": "Float",
+   "label": "Planned Reground Tool Life"
+  },
+  {
+   "fieldname": "cb_life",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "standard_new_tool_cost",
+   "fieldtype": "Currency",
+   "label": "Standard New Tool Cost"
+  },
+  {
+   "default": "0",
+   "fieldname": "lead_time_days",
+   "fieldtype": "Int",
+   "label": "Lead Time (Days)"
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS Tool Type",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Engineering User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site Supervisor",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Head Office User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Commercial User",
+   "share": 1
+  }
+ ],
+ "search_fields": "tool_type_name,tool_category",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "tool_type_name",
+ "track_changes": 1
+}

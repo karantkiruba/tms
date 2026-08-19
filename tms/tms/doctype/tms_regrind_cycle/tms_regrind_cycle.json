@@ -1,0 +1,434 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_id",
+  "naming_series",
+  "posting_date",
+  "company",
+  "customer",
+  "cb_id",
+  "tms_location",
+  "regrinding_return",
+  "status",
+  "sb_tool",
+  "physical_tool_code",
+  "tool_type",
+  "qty",
+  "cb_tool",
+  "source_item",
+  "source_serial_no",
+  "cpc_component_last_used",
+  "sb_items",
+  "rgp_item",
+  "rgf_item",
+  "cb_items",
+  "rej_item",
+  "ho_warehouse",
+  "sb_count",
+  "cycle_number",
+  "completed_regrind_count",
+  "cb_count",
+  "max_regrind_count",
+  "remaining_regrinds",
+  "sb_proc",
+  "regrind_cost",
+  "subcontracting_order",
+  "cb_proc",
+  "subcontracting_receipt",
+  "inspection_result",
+  "sb_out",
+  "output_serial_no",
+  "rgp_stock_entry",
+  "cb_out",
+  "rgf_stock_entry",
+  "sb_more",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_id",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "RGC-.YYYY.-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "RGC-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "cb_id",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tms_location",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "TMS Customer Location",
+   "options": "TMS Customer Location"
+  },
+  {
+   "fieldname": "regrinding_return",
+   "fieldtype": "Link",
+   "label": "Regrinding Return",
+   "options": "TMS Regrinding Return",
+   "read_only": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nPending Regrinding\nCompleted\nRejected\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_tool",
+   "fieldtype": "Section Break",
+   "label": "Tool"
+  },
+  {
+   "fieldname": "physical_tool_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Physical Tool Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tool_type",
+   "fieldtype": "Link",
+   "label": "Tool Type",
+   "options": "TMS Tool Type",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "label": "Quantity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_tool",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "The condition item being sent for regrinding, New or Reground Finished.",
+   "fieldname": "source_item",
+   "fieldtype": "Link",
+   "label": "Incoming Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "description": "Blank on the first cycle, when the tool is still a new item.",
+   "fieldname": "source_serial_no",
+   "fieldtype": "Data",
+   "label": "Incoming Serial No"
+  },
+  {
+   "fieldname": "cpc_component_last_used",
+   "fieldtype": "Link",
+   "label": "CPC Component Last Used",
+   "options": "CPC Component"
+  },
+  {
+   "fieldname": "sb_items",
+   "fieldtype": "Section Break",
+   "label": "Condition Item Codes"
+  },
+  {
+   "fieldname": "rgp_item",
+   "fieldtype": "Link",
+   "label": "Regrinding Pending Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgf_item",
+   "fieldtype": "Link",
+   "label": "Regrinding Finished Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_items",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rej_item",
+   "fieldtype": "Link",
+   "label": "Rejected Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ho_warehouse",
+   "fieldtype": "Link",
+   "label": "Head Office Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_count",
+   "fieldtype": "Section Break",
+   "label": "Regrind Count"
+  },
+  {
+   "bold": 1,
+   "fieldname": "cycle_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "This Cycle Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "completed_regrind_count",
+   "fieldtype": "Int",
+   "label": "Completed Regrind Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_count",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "max_regrind_count",
+   "fieldtype": "Int",
+   "label": "Maximum Regrind Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remaining_regrinds",
+   "fieldtype": "Int",
+   "label": "Remaining Regrinds",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_proc",
+   "fieldtype": "Section Break",
+   "label": "Regrinding Process"
+  },
+  {
+   "description": "Added to the reground tool's valuation on completion.",
+   "fieldname": "regrind_cost",
+   "fieldtype": "Currency",
+   "label": "Regrind Cost"
+  },
+  {
+   "description": "Optional link when the regrinding is outsourced.",
+   "fieldname": "subcontracting_order",
+   "fieldtype": "Link",
+   "label": "Subcontracting Order",
+   "options": "Subcontracting Order"
+  },
+  {
+   "fieldname": "cb_proc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subcontracting_receipt",
+   "fieldtype": "Link",
+   "label": "Subcontracting Receipt",
+   "options": "Subcontracting Receipt"
+  },
+  {
+   "fieldname": "inspection_result",
+   "fieldtype": "Select",
+   "label": "Inspection Result",
+   "options": "\nAccepted\nRejected"
+  },
+  {
+   "fieldname": "sb_out",
+   "fieldtype": "Section Break",
+   "label": "Outcome"
+  },
+  {
+   "bold": 1,
+   "description": "Carries this cycle's regrind count.",
+   "fieldname": "output_serial_no",
+   "fieldtype": "Data",
+   "label": "Reground Serial No",
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgp_stock_entry",
+   "fieldtype": "Link",
+   "label": "RGP Conversion Entry",
+   "no_copy": 1,
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_out",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rgf_stock_entry",
+   "fieldtype": "Link",
+   "label": "Completion Entry",
+   "no_copy": 1,
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "TMS Regrind Cycle",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS Regrind Cycle",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Head Office User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Engineering User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site Supervisor",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Commercial User",
+   "share": 1
+  }
+ ],
+ "search_fields": "physical_tool_code,status",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

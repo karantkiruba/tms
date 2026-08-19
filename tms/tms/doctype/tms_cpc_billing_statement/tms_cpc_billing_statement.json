@@ -1,0 +1,344 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_id",
+  "naming_series",
+  "posting_date",
+  "company",
+  "customer",
+  "cb_id",
+  "tms_location",
+  "cpc_contract",
+  "customer_po",
+  "currency",
+  "sb_period",
+  "billing_month",
+  "from_date",
+  "cb_period",
+  "to_date",
+  "billing_status",
+  "sb_items",
+  "fetch_html",
+  "items",
+  "sb_tot",
+  "total_billing_qty",
+  "cb_tot",
+  "total_billing_value",
+  "sb_cmp",
+  "total_tool_issue_value",
+  "tool_issue_value_per_component",
+  "cb_cmp",
+  "contribution_value",
+  "sb_more",
+  "sales_invoice",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_id",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "CPCB-.YYYY.-",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "CPCB-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_id",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tms_location",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "TMS Customer Location",
+   "options": "TMS Customer Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cpc_contract",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "CPC Contract",
+   "options": "CPC Contract",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "cpc_contract.customer_po_number",
+   "fieldname": "customer_po",
+   "fieldtype": "Data",
+   "label": "Customer PO",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "cpc_contract.currency",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_period",
+   "fieldtype": "Section Break",
+   "label": "Billing Period"
+  },
+  {
+   "description": "Label for the period, for example 2026-08.",
+   "fieldname": "billing_month",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Billing Month"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_period",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "reqd": 1
+  },
+  {
+   "default": "Draft",
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Billing Status",
+   "options": "Draft\nApproved\nInvoiced\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_items",
+   "fieldtype": "Section Break",
+   "label": "Billing Rows"
+  },
+  {
+   "fieldname": "fetch_html",
+   "fieldtype": "HTML",
+   "label": "",
+   "options": "<p class='text-muted small'>Use <b>Fetch Unbilled Production</b> to pull every confirmed production line for this contract and period that has quantity left to bill.</p>"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "TMS CPC Billing Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_tot",
+   "fieldtype": "Section Break",
+   "label": "Billing Totals"
+  },
+  {
+   "fieldname": "total_billing_qty",
+   "fieldtype": "Float",
+   "label": "Total Billing Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_tot",
+   "fieldtype": "Column Break"
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_billing_value",
+   "fieldtype": "Currency",
+   "label": "Total Billing Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_cmp",
+   "fieldtype": "Section Break",
+   "label": "Tool Issue Value versus CPC Billing"
+  },
+  {
+   "description": "Tool issue value posted for these components over the same period.",
+   "fieldname": "total_tool_issue_value",
+   "fieldtype": "Currency",
+   "label": "Total Tool Issue Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tool_issue_value_per_component",
+   "fieldtype": "Currency",
+   "label": "Tool Issue Value per Component",
+   "precision": "4",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_cmp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "bold": 1,
+   "description": "CPC billing value less tool issue value. An operational measure, not accounting gross profit (rule 26).",
+   "fieldname": "contribution_value",
+   "fieldtype": "Currency",
+   "label": "Contribution before Other Costs",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "no_copy": 1,
+   "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "TMS CPC Billing Statement",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS CPC Billing Statement",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Commercial User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site Supervisor",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Engineering User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Head Office User",
+   "share": 1
+  }
+ ],
+ "search_fields": "cpc_contract,billing_month",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

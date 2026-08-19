@@ -1,0 +1,193 @@
+{
+ "actions": [],
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "production_date",
+  "shift",
+  "machine",
+  "cpc_component",
+  "gross_production",
+  "cb_1",
+  "rejection_qty",
+  "rework_qty",
+  "non_billable_qty",
+  "accepted_qty",
+  "sb_conf",
+  "customer_confirmed_qty",
+  "customer_document_reference",
+  "cb_conf",
+  "cpc_rate",
+  "billable_qty",
+  "sb_bill",
+  "billed_qty",
+  "unbilled_qty",
+  "cb_bill",
+  "billing_status",
+  "sb_more",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "columns": 1,
+   "fieldname": "production_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "shift",
+   "fieldtype": "Select",
+   "label": "Shift",
+   "options": "\nShift A\nShift B\nShift C\nGeneral"
+  },
+  {
+   "columns": 2,
+   "fieldname": "machine",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Machine",
+   "options": "TMS Customer Machine"
+  },
+  {
+   "columns": 2,
+   "fieldname": "cpc_component",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "CPC Component",
+   "options": "CPC Component",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "gross_production",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Gross Production",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "rejection_qty",
+   "fieldtype": "Float",
+   "label": "Rejection Quantity"
+  },
+  {
+   "default": "0",
+   "fieldname": "rework_qty",
+   "fieldtype": "Float",
+   "label": "Rework Quantity"
+  },
+  {
+   "default": "0",
+   "fieldname": "non_billable_qty",
+   "fieldtype": "Float",
+   "label": "Non-Billable Quantity"
+  },
+  {
+   "columns": 1,
+   "fieldname": "accepted_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Accepted Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_conf",
+   "fieldtype": "Section Break",
+   "label": "Customer Confirmation"
+  },
+  {
+   "columns": 1,
+   "fieldname": "customer_confirmed_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Customer Confirmed Quantity"
+  },
+  {
+   "fieldname": "customer_document_reference",
+   "fieldtype": "Data",
+   "label": "Customer Document Reference"
+  },
+  {
+   "fieldname": "cb_conf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cpc_rate",
+   "fieldtype": "Currency",
+   "label": "CPC Rate",
+   "read_only": 1
+  },
+  {
+   "description": "Driven by the Billing Basis on the CPC Contract.",
+   "fieldname": "billable_qty",
+   "fieldtype": "Float",
+   "label": "Billable Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_bill",
+   "fieldtype": "Section Break",
+   "label": "Billing Control"
+  },
+  {
+   "default": "0",
+   "fieldname": "billed_qty",
+   "fieldtype": "Float",
+   "label": "Billed Quantity",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "unbilled_qty",
+   "fieldtype": "Float",
+   "label": "Unbilled Quantity",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_bill",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 1,
+   "default": "Unbilled",
+   "fieldname": "billing_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Billing Status",
+   "no_copy": 1,
+   "options": "Unbilled\nPartially Billed\nFully Billed\nAdjusted\nCancelled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS Production Declaration Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

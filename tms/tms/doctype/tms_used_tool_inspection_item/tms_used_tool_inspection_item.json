@@ -1,0 +1,160 @@
+{
+ "actions": [],
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "item_name",
+  "qty",
+  "inspection_result",
+  "disposition",
+  "cb_1",
+  "serial_no",
+  "uom",
+  "tool_condition",
+  "physical_tool_code",
+  "tool_type",
+  "sb_regrind",
+  "current_regrind_count",
+  "cb_regrind",
+  "max_regrind_count",
+  "sb_more",
+  "reason",
+  "cpc_component_last_used"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fetch_from": "item_code.item_name",
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "default": "1",
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Quantity",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "inspection_result",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Inspection Result",
+   "options": "\nOK\nWorn\nDamaged\nBroken\nDimensionally Out"
+  },
+  {
+   "columns": 2,
+   "fieldname": "disposition",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Disposition",
+   "options": "\nReusable\nRegrind\nScrap\nHold",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Small Text",
+   "label": "Serial No"
+  },
+  {
+   "fetch_from": "item_code.stock_uom",
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item_code.tms_tool_condition",
+   "fieldname": "tool_condition",
+   "fieldtype": "Link",
+   "label": "Condition",
+   "options": "TMS Tool Condition",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item_code.tms_physical_tool_code",
+   "fieldname": "physical_tool_code",
+   "fieldtype": "Data",
+   "label": "Physical Tool Code",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "item_code.tms_tool_type",
+   "fieldname": "tool_type",
+   "fieldtype": "Link",
+   "label": "Tool Type",
+   "options": "TMS Tool Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_regrind",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "current_regrind_count",
+   "fieldtype": "Int",
+   "label": "Current Regrind Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_regrind",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "max_regrind_count",
+   "fieldtype": "Int",
+   "label": "Maximum Regrind Count",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Small Text",
+   "label": "Reason"
+  },
+  {
+   "fieldname": "cpc_component_last_used",
+   "fieldtype": "Link",
+   "label": "CPC Component Last Used",
+   "options": "CPC Component"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS Used Tool Inspection Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,305 @@
+{
+ "actions": [],
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_route",
+  "machine",
+  "operation",
+  "feature",
+  "cb_route",
+  "tool_type",
+  "tool_category",
+  "is_primary_tool",
+  "sb_items",
+  "new_tool_code",
+  "reground_tool_code",
+  "cb_items",
+  "tool_specification",
+  "tool_material",
+  "manufacturer",
+  "sb_qty",
+  "tools_per_assembly",
+  "assemblies_per_machine",
+  "number_of_indexes",
+  "cb_qty",
+  "inserts_per_assembly",
+  "taps_qty",
+  "other_tooling_qty",
+  "sb_life",
+  "planned_new_tool_life",
+  "planned_reground_tool_life",
+  "cb_life",
+  "is_regrindable",
+  "max_regrind_count",
+  "sb_cost",
+  "new_tool_cost",
+  "cb_cost",
+  "regrind_cost",
+  "sb_stock",
+  "min_stock",
+  "max_stock",
+  "cb_stock",
+  "safety_stock",
+  "lead_time_days",
+  "sb_more",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_route",
+   "fieldtype": "Section Break"
+  },
+  {
+   "columns": 2,
+   "fieldname": "machine",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Machine",
+   "options": "TMS Customer Machine",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "operation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Operation",
+   "options": "TMS Operation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "feature",
+   "fieldtype": "Data",
+   "label": "Feature"
+  },
+  {
+   "fieldname": "cb_route",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 2,
+   "fieldname": "tool_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tool Type",
+   "options": "TMS Tool Type",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "tool_type.tool_category",
+   "fieldname": "tool_category",
+   "fieldtype": "Link",
+   "label": "Tool Category",
+   "options": "TMS Tool Category",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "description": "Tool life is measured only for the primary tool.",
+   "fieldname": "is_primary_tool",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Primary Tool"
+  },
+  {
+   "fieldname": "sb_items",
+   "fieldtype": "Section Break",
+   "label": "Tool Items"
+  },
+  {
+   "fieldname": "new_tool_code",
+   "fieldtype": "Link",
+   "label": "New Tool Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "reground_tool_code",
+   "fieldtype": "Link",
+   "label": "Reground Tool Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "cb_items",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "tool_type.tool_specification",
+   "fieldname": "tool_specification",
+   "fieldtype": "Small Text",
+   "label": "Tool Specification"
+  },
+  {
+   "fetch_from": "tool_type.tool_material",
+   "fieldname": "tool_material",
+   "fieldtype": "Data",
+   "label": "Tool Material"
+  },
+  {
+   "fetch_from": "tool_type.manufacturer",
+   "fieldname": "manufacturer",
+   "fieldtype": "Link",
+   "label": "Manufacturer",
+   "options": "Manufacturer"
+  },
+  {
+   "fieldname": "sb_qty",
+   "fieldtype": "Section Break",
+   "label": "Standard Quantity"
+  },
+  {
+   "columns": 1,
+   "default": "1",
+   "fieldname": "tools_per_assembly",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Tools per Assembly"
+  },
+  {
+   "default": "1",
+   "fieldname": "assemblies_per_machine",
+   "fieldtype": "Float",
+   "label": "Assemblies per Machine"
+  },
+  {
+   "fetch_from": "tool_type.number_of_indexes",
+   "fieldname": "number_of_indexes",
+   "fieldtype": "Int",
+   "label": "Number of Indexes"
+  },
+  {
+   "fieldname": "cb_qty",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "inserts_per_assembly",
+   "fieldtype": "Float",
+   "label": "Inserts per Assembly"
+  },
+  {
+   "default": "0",
+   "fieldname": "taps_qty",
+   "fieldtype": "Float",
+   "label": "Taps Quantity"
+  },
+  {
+   "default": "0",
+   "fieldname": "other_tooling_qty",
+   "fieldtype": "Float",
+   "label": "Other Tooling Quantity"
+  },
+  {
+   "fieldname": "sb_life",
+   "fieldtype": "Section Break",
+   "label": "Planned Life"
+  },
+  {
+   "fetch_from": "tool_type.planned_new_tool_life",
+   "fieldname": "planned_new_tool_life",
+   "fieldtype": "Float",
+   "label": "Planned New Tool Life"
+  },
+  {
+   "fetch_from": "tool_type.planned_reground_tool_life",
+   "fieldname": "planned_reground_tool_life",
+   "fieldtype": "Float",
+   "label": "Planned Reground Tool Life"
+  },
+  {
+   "fieldname": "cb_life",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "tool_type.is_regrindable",
+   "fieldname": "is_regrindable",
+   "fieldtype": "Check",
+   "label": "Regrindable",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "tool_type.max_regrind_count",
+   "fieldname": "max_regrind_count",
+   "fieldtype": "Int",
+   "label": "Maximum Regrind Count"
+  },
+  {
+   "fieldname": "sb_cost",
+   "fieldtype": "Section Break",
+   "label": "Standard Cost"
+  },
+  {
+   "fetch_from": "tool_type.standard_new_tool_cost",
+   "fieldname": "new_tool_cost",
+   "fieldtype": "Currency",
+   "label": "New Tool Cost"
+  },
+  {
+   "fieldname": "cb_cost",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "tool_type.standard_regrind_cost",
+   "fieldname": "regrind_cost",
+   "fieldtype": "Currency",
+   "label": "Regrind Cost"
+  },
+  {
+   "fieldname": "sb_stock",
+   "fieldtype": "Section Break",
+   "label": "Stock Norms"
+  },
+  {
+   "default": "0",
+   "fieldname": "min_stock",
+   "fieldtype": "Float",
+   "label": "Minimum Stock"
+  },
+  {
+   "default": "0",
+   "fieldname": "max_stock",
+   "fieldtype": "Float",
+   "label": "Maximum Stock"
+  },
+  {
+   "fieldname": "cb_stock",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "safety_stock",
+   "fieldtype": "Float",
+   "label": "Safety Stock"
+  },
+  {
+   "fetch_from": "tool_type.lead_time_days",
+   "fieldname": "lead_time_days",
+   "fieldtype": "Int",
+   "label": "Lead Time (Days)"
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "PFEP Tool Detail",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

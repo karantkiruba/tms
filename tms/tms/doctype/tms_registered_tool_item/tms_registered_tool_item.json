@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tool_condition",
+  "condition_name",
+  "item_code",
+  "serialised",
+  "created",
+  "cb_1",
+  "serial_no_series"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "tool_condition",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tool Condition",
+   "options": "TMS Tool Condition",
+   "reqd": 1
+  },
+  {
+   "columns": 2,
+   "fetch_from": "tool_condition.condition_name",
+   "fieldname": "condition_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Condition",
+   "read_only": 1
+  },
+  {
+   "columns": 3,
+   "description": "Generated as physical tool code + condition suffix. The Item is created on submit.",
+   "fieldname": "item_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "tool_condition.serialised",
+   "fieldname": "serialised",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Serialised",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "created",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Created",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "serial_no_series",
+   "fieldtype": "Data",
+   "label": "Serial No Series",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS Registered Tool Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

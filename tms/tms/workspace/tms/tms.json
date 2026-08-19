@@ -1,0 +1,385 @@
+{
+ "charts": [],
+ "content": "[{\"id\": \"tms_header\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Tool Management System</b></span>\", \"col\": 12}}, {\"id\": \"card_0\", \"type\": \"card\", \"data\": {\"card_name\": \"Masters\", \"col\": 4}}, {\"id\": \"card_1\", \"type\": \"card\", \"data\": {\"card_name\": \"Tool Registry\", \"col\": 4}}, {\"id\": \"card_2\", \"type\": \"card\", \"data\": {\"card_name\": \"Planning and Contracts\", \"col\": 4}}, {\"id\": \"card_3\", \"type\": \"card\", \"data\": {\"card_name\": \"Tool Movement\", \"col\": 4}}, {\"id\": \"card_4\", \"type\": \"card\", \"data\": {\"card_name\": \"Shop Floor and Life\", \"col\": 4}}, {\"id\": \"card_5\", \"type\": \"card\", \"data\": {\"card_name\": \"Used Tool Management\", \"col\": 4}}, {\"id\": \"card_6\", \"type\": \"card\", \"data\": {\"card_name\": \"Regrinding\", \"col\": 4}}, {\"id\": \"card_7\", \"type\": \"card\", \"data\": {\"card_name\": \"Production and Billing\", \"col\": 4}}, {\"id\": \"card_8\", \"type\": \"card\", \"data\": {\"card_name\": \"Setup\", \"col\": 4}}]",
+ "creation": "2026-08-18 10:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "tool",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "label": "TMS",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Masters",
+   "link_count": 5,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Customer Location",
+   "link_count": 0,
+   "link_to": "TMS Customer Location",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Production Line",
+   "link_count": 0,
+   "link_to": "TMS Production Line",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Customer Machine",
+   "link_count": 0,
+   "link_to": "TMS Customer Machine",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Operation",
+   "link_count": 0,
+   "link_to": "TMS Operation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CPC Component",
+   "link_count": 0,
+   "link_to": "CPC Component",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tool Registry",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Category",
+   "link_count": 0,
+   "link_to": "TMS Tool Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Type",
+   "link_count": 0,
+   "link_to": "TMS Tool Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Registration",
+   "link_count": 0,
+   "link_to": "TMS Tool Registration",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Condition",
+   "link_count": 0,
+   "link_to": "TMS Tool Condition",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Planning and Contracts",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "PFEP Tooling Plan",
+   "link_count": 0,
+   "link_to": "PFEP Tooling Plan",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "CPC Contract",
+   "link_count": 0,
+   "link_to": "CPC Contract",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Tool Movement",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Receipt",
+   "link_count": 0,
+   "link_to": "TMS Tool Receipt",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Issue",
+   "link_count": 0,
+   "link_to": "TMS Tool Issue",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Return",
+   "link_count": 0,
+   "link_to": "TMS Tool Return",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Shop Floor and Life",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Installation",
+   "link_count": 0,
+   "link_to": "TMS Tool Installation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Removal",
+   "link_count": 0,
+   "link_to": "TMS Tool Removal",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Used Tool Management",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Used Tool Inspection",
+   "link_count": 0,
+   "link_to": "TMS Used Tool Inspection",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Tool Scrap",
+   "link_count": 0,
+   "link_to": "TMS Tool Scrap",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Regrinding",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Regrinding Return",
+   "link_count": 0,
+   "link_to": "TMS Regrinding Return",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Regrind Cycle",
+   "link_count": 0,
+   "link_to": "TMS Regrind Cycle",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Production and Billing",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Production Declaration",
+   "link_count": 0,
+   "link_to": "TMS Production Declaration",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS CPC Billing Statement",
+   "link_count": 0,
+   "link_to": "TMS CPC Billing Statement",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setup",
+   "link_count": 1,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "dependencies": "",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "TMS Settings",
+   "link_count": 0,
+   "link_to": "TMS Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 30.0,
+ "shortcuts": [
+  {
+   "color": "Blue",
+   "label": "Tool Issue",
+   "link_to": "TMS Tool Issue",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "label": "Production Declaration",
+   "link_to": "TMS Production Declaration",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "label": "CPC Billing Statement",
+   "link_to": "TMS CPC Billing Statement",
+   "type": "DocType"
+  },
+  {
+   "color": "Red",
+   "label": "Regrind Cycle",
+   "link_to": "TMS Regrind Cycle",
+   "type": "DocType"
+  },
+  {
+   "color": "Purple",
+   "label": "PFEP Tooling Plan",
+   "link_to": "PFEP Tooling Plan",
+   "type": "DocType"
+  }
+ ],
+ "title": "TMS"
+}

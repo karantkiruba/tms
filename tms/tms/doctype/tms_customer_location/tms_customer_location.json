@@ -1,0 +1,239 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:tms_location_code",
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_id",
+  "tms_location_code",
+  "location_name",
+  "customer",
+  "plant",
+  "cb_id",
+  "company",
+  "cost_center",
+  "site_coordinator",
+  "is_active",
+  "sb_wh",
+  "main_warehouse",
+  "shopfloor_warehouse",
+  "cb_wh",
+  "used_tool_warehouse",
+  "head_office_warehouse",
+  "sb_more",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_id",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tms_location_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "TMS Location Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "location_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Location Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "plant",
+   "fieldtype": "Data",
+   "label": "Plant"
+  },
+  {
+   "fieldname": "cb_id",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "site_coordinator",
+   "fieldtype": "Link",
+   "label": "TMS Site Coordinator",
+   "options": "Employee"
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Active"
+  },
+  {
+   "fieldname": "sb_wh",
+   "fieldtype": "Section Break",
+   "label": "Operating Warehouses"
+  },
+  {
+   "description": "Existing customer-site warehouse holding tools available for issue.",
+   "fieldname": "main_warehouse",
+   "fieldtype": "Link",
+   "label": "Main Customer Location Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "description": "Holds tools issued from the main warehouse for production use.",
+   "fieldname": "shopfloor_warehouse",
+   "fieldtype": "Link",
+   "label": "Shopfloor Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_wh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Holds removed tools until inspection and disposition.",
+   "fieldname": "used_tool_warehouse",
+   "fieldtype": "Link",
+   "label": "Used Tool Warehouse",
+   "options": "Warehouse",
+   "reqd": 1
+  },
+  {
+   "description": "Destination for tools returned from this location for regrinding.",
+   "fieldname": "head_office_warehouse",
+   "fieldtype": "Link",
+   "label": "Head Office Receiving Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "sb_more",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS Customer Location",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site Supervisor",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Site Supervisor",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Head Office User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "permlevel": 0,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "TMS Commercial User",
+   "share": 1
+  }
+ ],
+ "search_fields": "location_name,customer",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "location_name",
+ "track_changes": 1
+}

@@ -1,0 +1,130 @@
+{
+ "actions": [],
+ "creation": "2026-08-18 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "cpc_component",
+  "machine",
+  "production_declaration",
+  "declaration_item",
+  "production_date",
+  "cb_1",
+  "customer_confirmed_qty",
+  "previously_billed_qty",
+  "current_billing_qty",
+  "remaining_unbilled_qty",
+  "sb_val",
+  "cpc_rate",
+  "cb_val",
+  "billing_value"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "cpc_component",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "CPC Component",
+   "options": "CPC Component",
+   "reqd": 1
+  },
+  {
+   "fieldname": "machine",
+   "fieldtype": "Link",
+   "label": "Machine",
+   "options": "TMS Customer Machine"
+  },
+  {
+   "columns": 2,
+   "fieldname": "production_declaration",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Production Declaration",
+   "options": "TMS Production Declaration",
+   "reqd": 1
+  },
+  {
+   "fieldname": "declaration_item",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Declaration Row",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "fieldname": "production_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Production Date"
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_confirmed_qty",
+   "fieldtype": "Float",
+   "label": "Confirmed Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "previously_billed_qty",
+   "fieldtype": "Float",
+   "label": "Previously Billed",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "current_billing_qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Current Billing Quantity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "remaining_unbilled_qty",
+   "fieldtype": "Float",
+   "label": "Remaining Unbilled",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_val",
+   "fieldtype": "Section Break"
+  },
+  {
+   "columns": 1,
+   "fieldname": "cpc_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "CPC Rate",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cb_val",
+   "fieldtype": "Column Break"
+  },
+  {
+   "columns": 2,
+   "fieldname": "billing_value",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Billing Value",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-18 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "TMS CPC Billing Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
