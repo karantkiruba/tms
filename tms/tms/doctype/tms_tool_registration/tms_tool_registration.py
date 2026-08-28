@@ -17,6 +17,32 @@ class TMSToolRegistration(Document):
 	def validate(self):
 		self.validate_duplicate()
 		self.set_item_codes()
+		self.validate_regrind_settings()
+		self.validate_life()
+
+	def validate_regrind_settings(self):
+		if not self.is_regrindable:
+			self.max_regrind_count = 0
+			self.planned_reground_tool_life = 0
+			self.standard_regrind_cost = 0
+			return
+
+		if not self.max_regrind_count or self.max_regrind_count < 1:
+			frappe.throw(_("Maximum Regrind Count must be at least 1 for a regrindable tool type."))
+
+	@frappe.whitelist()
+	def refresh_purchase_cost(self):
+		"""Pull the actual purchase cost for this tool type from receipt history."""
+		from tms.utils.costing import update_tool_type_cost
+
+		cost = update_tool_type_cost(self.name)
+		self.reload()
+		return cost
+
+	def validate_life(self):
+		for field in ("planned_new_tool_life", "planned_reground_tool_life"):
+			if (self.get(field) or 0) < 0:
+				frappe.throw(_("{0} cannot be negative.").format(_(self.meta.get_label(field))))
 
 	def validate_duplicate(self):
 		existing = frappe.db.exists(
@@ -46,26 +72,25 @@ class TMSToolRegistration(Document):
 	@frappe.whitelist()
 	def fetch_conditions(self):
 		"""Populate the condition table from the Tool Condition master."""
-		tool_type = frappe.db.get_value(
-			"TMS Tool Type", self.tool_type, ["is_regrindable"], as_dict=True
-		)
-		is_regrindable = tool_type and tool_type.is_regrindable
+		#tool_type = frappe.db.get_value(
+		#	"TMS Tool Type", self.tool_type, ["is_regrindable"], as_dict=True
+		#)
+		#is_regrindable = tool_type and tool_type.is_regrindable
 
-		filters = {}
-		if not is_regrindable:
-			filters["is_regrind_input"] = 0
+		#filters = {}
+		#if not is_regrindable:
+		#	filters["is_regrind_input"] = 0
 
 		conditions = frappe.get_all(
 			"TMS Tool Condition",
-			filters=filters,
 			fields=["name", "serialised", "is_regrind_output"],
 			order_by="sort_order asc",
 		)
 
 		self.set("conditions", [])
 		for condition in conditions:
-			if not is_regrindable and condition.is_regrind_output:
-				continue
+			#if not is_regrindable and condition.is_regrind_output:
+			#	continue
 			self.append("conditions", {"tool_condition": condition.name})
 
 		self.set_item_codes()
@@ -105,7 +130,7 @@ class TMSToolRegistration(Document):
 			item.is_stock_item = 1
 			item.include_item_in_manufacturing = 0
 			item.is_purchase_item = 1 if condition.condition_code == "N" else 0
-			item.is_sales_item = 0
+			item.is_sales_item = 1
 
 			if condition.serialised:
 				item.has_serial_no = 1
@@ -120,7 +145,17 @@ class TMSToolRegistration(Document):
 			item.tms_is_tool = 1
 			item.tms_tool_type = self.tool_type
 			item.tms_tool_condition = row.tool_condition
+			item.custom_tms_tool_registration = self.name
 			item.tms_physical_tool_code = self.physical_tool_code
+			item.brand = self.make
+			item.append("taxes", {
+				"item_tax_template": "GST 18% - UTM",
+				"tax_category": "In-State"
+			})
+			item.append("taxes", {
+				"item_tax_template": "GST 18% - UTM",
+				"tax_category": "Out-State"
+			})
 			item.insert(ignore_permissions=True)
 
 			row.db_set("created", 1)

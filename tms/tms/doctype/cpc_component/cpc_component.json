@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "format:{tms_location}-{component_code}",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 10:00:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -55,11 +55,11 @@
   {
    "fieldname": "tms_location",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "TMS Customer Location",
-   "options": "TMS Customer Location",
-   "reqd": 1
+   "options": "TMS Customer Location"
   },
   {
    "fieldname": "cb_id",
@@ -129,11 +129,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-26 16:42:40.887677",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "CPC Component",
- "naming_rule": "Expression",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -141,7 +141,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -154,7 +153,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -167,7 +165,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -180,7 +177,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -191,7 +187,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -201,7 +196,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -211,7 +205,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -219,6 +212,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "component_code,component_name,customer",
  "show_title_field_in_link": 1,
  "sort_field": "modified",

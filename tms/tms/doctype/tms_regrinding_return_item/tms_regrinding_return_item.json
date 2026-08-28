@@ -1,6 +1,6 @@
 {
  "actions": [],
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 10:00:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -13,6 +13,7 @@
   "uom",
   "physical_tool_code",
   "tool_type",
+  "tms_tool_registration",
   "sb_regrind",
   "current_regrind_count",
   "cb_regrind",
@@ -159,17 +160,25 @@
    "fieldname": "remarks",
    "fieldtype": "Small Text",
    "label": "Remarks"
+  },
+  {
+   "fetch_from": "item_code.custom_tms_tool_registration",
+   "fieldname": "tms_tool_registration",
+   "fieldtype": "Link",
+   "label": "TMS Tool Registration",
+   "options": "TMS Tool Registration"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-22 16:56:41.790151",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Regrinding Return Item",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

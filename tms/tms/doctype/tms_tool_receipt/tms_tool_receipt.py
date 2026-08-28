@@ -25,33 +25,34 @@ class TMSToolReceipt(Document):
 		self.set_incoming_rates()
 
 	def set_warehouses(self):
-		warehouses = frappe.db.get_value(
-			"TMS Customer Location", self.tms_location,
-			["main_warehouse", "head_office_warehouse"], as_dict=True
-		)
-		self.target_warehouse = warehouses.main_warehouse
-
-		if not self.source_warehouse:
-			if self.purchase_receipt:
-				self.source_warehouse = frappe.db.get_value(
-					"Purchase Receipt Item", {"parent": self.purchase_receipt}, "warehouse"
-				)
-			elif self.receipt_type in ("Head Office Transfer", "Reground Tool Return",
-			                           "New Tool Supply"):
-				self.source_warehouse = warehouses.head_office_warehouse
-
-		if not self.source_warehouse:
-			frappe.throw(
-				_("Set a Source Warehouse, or a Head Office Receiving Warehouse on "
-				  "TMS Customer Location {0}. Tools must already be in stock at their "
-				  "purchase value before they are sent to the customer location.").format(
-					self.tms_location
-				),
-				title=_("Source Warehouse Required"),
+		if self.tms_location:
+			warehouses = frappe.db.get_value(
+				"TMS Customer Location", self.tms_location,
+				["main_warehouse", "head_office_warehouse"], as_dict=True
 			)
+			self.target_warehouse = warehouses.main_warehouse
 
-		if self.source_warehouse == self.target_warehouse:
-			frappe.throw(_("Source and target warehouse cannot be the same."))
+			if not self.source_warehouse:
+				if self.purchase_receipt:
+					self.source_warehouse = frappe.db.get_value(
+						"Purchase Receipt Item", {"parent": self.purchase_receipt}, "warehouse"
+					)
+				elif self.receipt_type in ("Head Office Transfer", "Reground Tool Return",
+			        	                   "New Tool Supply"):
+					self.source_warehouse = warehouses.head_office_warehouse
+
+			if not self.source_warehouse:
+				frappe.throw(
+					_("Set a Source Warehouse, or a Head Office Receiving Warehouse on "
+				  	"TMS Customer Location {0}. Tools must already be in stock at their "
+				  	"purchase value before they are sent to the customer location.").format(
+						self.tms_location
+					),
+					title=_("Source Warehouse Required"),
+				)
+
+			if self.source_warehouse == self.target_warehouse:
+				frappe.throw(_("Source and target warehouse cannot be the same."))
 
 	def validate_purchase_receipt(self):
 		"""A referenced Purchase Receipt must actually cover the items being sent."""

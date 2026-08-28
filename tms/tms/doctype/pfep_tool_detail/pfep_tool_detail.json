@@ -1,6 +1,6 @@
 {
  "actions": [],
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 19:54:29.449115",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -11,6 +11,7 @@
   "feature",
   "cb_route",
   "tool_type",
+  "tms_tool_registration",
   "tool_category",
   "is_primary_tool",
   "sb_items",
@@ -127,13 +128,13 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "tool_type.tool_specification",
+   "fetch_from": "tms_tool_registration.tool_specification",
    "fieldname": "tool_specification",
    "fieldtype": "Small Text",
    "label": "Tool Specification"
   },
   {
-   "fetch_from": "tool_type.tool_material",
+   "fetch_from": "tms_tool_registration.tool_material",
    "fieldname": "tool_material",
    "fieldtype": "Data",
    "label": "Tool Material"
@@ -151,6 +152,7 @@
    "label": "Standard Quantity"
   },
   {
+   "allow_on_submit": 1,
    "columns": 1,
    "default": "1",
    "fieldname": "tools_per_assembly",
@@ -198,13 +200,13 @@
    "label": "Planned Life"
   },
   {
-   "fetch_from": "tool_type.planned_new_tool_life",
+   "fetch_from": "tms_tool_registration.planned_new_tool_life",
    "fieldname": "planned_new_tool_life",
    "fieldtype": "Float",
    "label": "Planned New Tool Life"
   },
   {
-   "fetch_from": "tool_type.planned_reground_tool_life",
+   "fetch_from": "tms_tool_registration.planned_reground_tool_life",
    "fieldname": "planned_reground_tool_life",
    "fieldtype": "Float",
    "label": "Planned Reground Tool Life"
@@ -214,14 +216,15 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "tool_type.is_regrindable",
+   "default": "0",
+   "fetch_from": "tms_tool_registration.is_regrindable",
    "fieldname": "is_regrindable",
    "fieldtype": "Check",
    "label": "Regrindable",
    "read_only": 1
   },
   {
-   "fetch_from": "tool_type.max_regrind_count",
+   "fetch_from": "tms_tool_registration.max_regrind_count",
    "fieldname": "max_regrind_count",
    "fieldtype": "Int",
    "label": "Maximum Regrind Count"
@@ -232,7 +235,7 @@
    "label": "Standard Cost"
   },
   {
-   "fetch_from": "tool_type.standard_new_tool_cost",
+   "fetch_from": "tms_tool_registration.standard_new_tool_cost",
    "fieldname": "new_tool_cost",
    "fieldtype": "Currency",
    "label": "New Tool Cost"
@@ -242,7 +245,7 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "tool_type.standard_regrind_cost",
+   "fetch_from": "tms_tool_registration.standard_regrind_cost",
    "fieldname": "regrind_cost",
    "fieldtype": "Currency",
    "label": "Regrind Cost"
@@ -275,7 +278,7 @@
    "label": "Safety Stock"
   },
   {
-   "fetch_from": "tool_type.lead_time_days",
+   "fetch_from": "tms_tool_registration.lead_time_days",
    "fieldname": "lead_time_days",
    "fieldtype": "Int",
    "label": "Lead Time (Days)"
@@ -288,17 +291,25 @@
    "fieldname": "remarks",
    "fieldtype": "Small Text",
    "label": "Remarks"
+  },
+  {
+   "fieldname": "tms_tool_registration",
+   "fieldtype": "Link",
+   "label": "TMS Tool Registration",
+   "options": "TMS Tool Registration",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-27 18:55:23.681532",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "PFEP Tool Detail",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

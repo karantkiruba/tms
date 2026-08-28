@@ -2,12 +2,13 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 10:00:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "sb_id",
+  "naming_series_definition",
   "naming_series",
   "posting_date",
   "company",
@@ -16,6 +17,8 @@
   "tms_location",
   "required_date",
   "status",
+  "source_warehouse",
+  "target_warehouse",
   "sb_basis",
   "cpc_component",
   "requirement_source",
@@ -41,11 +44,11 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "TREQ-.YYYY.-",
+   "default": "TREQE-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "TREQ-.YYYY.-",
+   "options": "TREQS-.YYYY.-\nTREQE-.YYYY.-",
    "reqd": 1
   },
   {
@@ -64,6 +67,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "tms_location.customer",
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_standard_filter": 1,
@@ -77,11 +81,11 @@
   {
    "fieldname": "tms_location",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "TMS Customer Location",
-   "options": "TMS Customer Location",
-   "reqd": 1
+   "options": "TMS Customer Location"
   },
   {
    "fieldname": "required_date",
@@ -142,8 +146,7 @@
   {
    "fieldname": "calc_html",
    "fieldtype": "HTML",
-   "label": "",
-   "options": "<p class='text-muted small'>Use <b>Calculate Requirement</b> to build the rows from the approved PFEP, current usable stock, expected reground tools and everything already on order.</p>"
+   "options": "<p class=\"text-muted small\">Use <b>Calculate Requirement</b> to build the rows from the approved PFEP, current usable stock, expected reground tools and everything already on order.</p>"
   },
   {
    "fieldname": "items",
@@ -203,12 +206,29 @@
    "options": "TMS Tool Requirement",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "naming_series_definition",
+   "fieldtype": "Select",
+   "label": "Naming Series Definition"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-26 22:58:30.622453",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Requirement",
@@ -222,7 +242,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -238,7 +257,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -254,7 +272,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -270,7 +287,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -282,7 +298,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -292,7 +307,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -302,7 +316,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -310,6 +323,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "tms_location,status",
  "sort_field": "modified",
  "sort_order": "DESC",

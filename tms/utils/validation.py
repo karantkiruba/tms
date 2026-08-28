@@ -12,7 +12,7 @@ def get_item_tool_info(item_code):
 	info = frappe.db.get_value(
 		"Item",
 		item_code,
-		["tms_is_tool", "tms_tool_type", "tms_tool_condition", "tms_physical_tool_code",
+		["tms_is_tool", "tms_tool_type","custom_tms_tool_registration", "tms_tool_condition", "tms_physical_tool_code",
 		 "has_serial_no", "stock_uom"],
 		as_dict=True,
 	)
@@ -128,8 +128,9 @@ def get_pfep_standard_qty(pfep, tool_type, machine, operation):
 		return 0, None
 
 	for row in pfep.tools:
-		if row.tool_type != tool_type:
-			continue
+		#if row.tms_tool_registration:
+			#if row.tms_tool_registration != custom_tms_tool_registration:
+				#continue
 		if machine and row.machine != machine:
 			continue
 		if operation and row.operation != operation:
@@ -149,11 +150,11 @@ def get_serial_regrind_cycle(serial_no):
 def validate_regrind_capacity(item_code, serial_no=None):
 	"""Rules 17 and 18: a tool at its maximum regrind count cannot start another cycle."""
 	info = get_item_tool_info(item_code)
-	if not info.get("tms_tool_type"):
+	if not info.get("custom_tms_tool_registration"):
 		return
 
 	tool_type = frappe.db.get_value(
-		"TMS Tool Type", info.tms_tool_type, ["is_regrindable", "max_regrind_count"], as_dict=True
+		"TMS Tool Registration", info.custom_tms_tool_registration, ["is_regrindable", "max_regrind_count"], as_dict=True
 	)
 	if not tool_type or not tool_type.is_regrindable:
 		frappe.throw(

@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:tool_type_code",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 10:00:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -94,6 +94,7 @@
   {
    "fieldname": "sb_spec",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Specification"
   },
   {
@@ -120,6 +121,7 @@
   {
    "fieldname": "sb_regrind",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Regrinding"
   },
   {
@@ -149,6 +151,7 @@
   {
    "fieldname": "sb_life",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Planned Life and Cost"
   },
   {
@@ -181,6 +184,7 @@
   {
    "fieldname": "sb_actual",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Actual Purchase Cost"
   },
   {
@@ -231,7 +235,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-21 22:39:18.068341",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Type",
@@ -243,7 +247,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -256,7 +259,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -269,7 +271,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -280,7 +281,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -290,7 +290,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -300,7 +299,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -310,7 +308,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -318,6 +315,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "tool_type_name,tool_category",
  "show_title_field_in_link": 1,
  "sort_field": "modified",

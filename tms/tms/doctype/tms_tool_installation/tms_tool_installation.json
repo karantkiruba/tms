@@ -2,20 +2,24 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 20:06:28.166706",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "sb_id",
+  "naming_series_definition",
   "naming_series",
   "posting_date",
   "company",
   "customer",
   "cb_id",
-  "tms_location",
   "tool_issue",
+  "tms_location",
   "installation_status",
+  "cost_center",
+  "transfer_out_location",
+  "branch",
   "sb_usage",
   "cpc_component",
   "machine",
@@ -25,6 +29,7 @@
   "sb_tool",
   "item_code",
   "tool_type",
+  "tool_registration",
   "tool_condition",
   "cb_tool",
   "serial_no",
@@ -48,11 +53,10 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "TINS-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "TINS-.YYYY.-",
+   "options": "TINS-.YYYY.-\nTINSS-.YYYY.-\nTINSE-.YYYY.-",
    "reqd": 1
   },
   {
@@ -70,6 +74,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "tool_issue.customer",
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_standard_filter": 1,
@@ -84,10 +89,10 @@
   {
    "fieldname": "tms_location",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_standard_filter": 1,
    "label": "TMS Customer Location",
-   "options": "TMS Customer Location",
-   "reqd": 1
+   "options": "TMS Customer Location"
   },
   {
    "fieldname": "tool_issue",
@@ -112,6 +117,7 @@
    "label": "Production Usage"
   },
   {
+   "fetch_from": "tool_issue.cpc_component",
    "fieldname": "cpc_component",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -121,6 +127,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "tool_issue.machine",
    "fieldname": "machine",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -133,6 +140,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "tool_issue.operation",
    "fieldname": "operation",
    "fieldtype": "Link",
    "label": "Operation",
@@ -140,6 +148,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "tool_issue.production_line",
    "fieldname": "production_line",
    "fieldtype": "Link",
    "label": "Production Line",
@@ -262,12 +271,42 @@
    "options": "TMS Tool Installation",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "item_code.custom_tms_tool_registration",
+   "fieldname": "tool_registration",
+   "fieldtype": "Link",
+   "label": "Tool Registration",
+   "options": "TMS Tool Registration"
+  },
+  {
+   "fieldname": "naming_series_definition",
+   "fieldtype": "Select",
+   "label": "Naming Series Definition"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer Out Location",
+   "options": "Transfer Out Location"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-26 23:13:17.373038",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Installation",
@@ -281,7 +320,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -297,7 +335,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -313,7 +350,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -329,7 +365,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -341,7 +376,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -351,7 +385,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -361,7 +394,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -369,6 +401,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "item_code,serial_no,cpc_component",
  "sort_field": "modified",
  "sort_order": "DESC",

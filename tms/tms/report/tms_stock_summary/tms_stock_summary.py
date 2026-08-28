@@ -58,11 +58,11 @@ def get_warehouse_map(tms_location):
 
 def get_data(filters):
 	warehouse_map = get_warehouse_map(filters.tms_location)
-	if not warehouse_map:
-		return []
+	#if not warehouse_map:
+		#return []
 
-	conditions = ["b.warehouse in %(warehouses)s"]
-	values = {"warehouses": list(warehouse_map)}
+	conditions = []
+	values = {}
 
 	if filters.tool_type:
 		conditions.append("i.tms_tool_type = %(tool_type)s")
@@ -70,21 +70,28 @@ def get_data(filters):
 	if filters.hide_zero:
 		conditions.append("b.actual_qty != 0")
 
+	where_clause = ""
+	if conditions:
+		where_clause = "WHERE " + " AND ".join(conditions)
+
 	rows = frappe.db.sql(
-		"""
+		f"""
 		select b.warehouse, b.item_code, b.actual_qty, b.valuation_rate,
-		       b.stock_value, i.tms_tool_type as tool_type,
+		       b.stock_value, i.tms_tool_type as tool_type,w.warehouse_type as warehouse_role,
 		       i.tms_physical_tool_code as physical_tool_code,
 		       c.condition_name
 		from tabBin b
 		inner join tabItem i on i.name = b.item_code
+                 
+    LEFT JOIN tabWarehouse w
+        ON w.name = b.warehouse
 		left join `tabTMS Tool Condition` c on c.name = i.tms_tool_condition
-		where {conditions}
+		{where_clause}
 		order by b.warehouse, i.tms_tool_type, c.sort_order
-		""".format(conditions=" and ".join(conditions)),
+		""",
 		values, as_dict=True,
 	)
 
-	for row in rows:
-		row.warehouse_role = warehouse_map.get(row.warehouse)
+	#for row in rows:
+		#row.warehouse_role = warehouse_map.get(row.warehouse,"")
 	return rows

@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 20:10:10.108020",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -12,6 +12,7 @@
   "physical_tool_code",
   "tool_type",
   "tool_description",
+  "make",
   "cb_id",
   "company",
   "item_group",
@@ -19,8 +20,32 @@
   "gst_hsn_code",
   "registration_status",
   "sb_cond",
+  "fetch_conditions",
   "conditions_html",
   "conditions",
+  "sb_spec",
+  "tool_specification",
+  "column_break_imqa",
+  "tool_material",
+  "number_of_indexes",
+  "sb_regrind",
+  "is_regrindable",
+  "max_regrind_count",
+  "column_break_eriq",
+  "standard_regrind_cost",
+  "sb_life",
+  "planned_new_tool_life",
+  "planned_reground_tool_life",
+  "column_break_zusa",
+  "standard_new_tool_cost",
+  "lead_time_days",
+  "sb_actual",
+  "actual_avg_purchase_cost",
+  "last_purchase_cost",
+  "column_break_krcf",
+  "last_purchase_date",
+  "purchase_qty",
+  "cost_variance_pct",
   "sb_more",
   "remarks",
   "amended_from"
@@ -109,8 +134,7 @@
   {
    "fieldname": "conditions_html",
    "fieldtype": "HTML",
-   "label": "",
-   "options": "<p class='text-muted small'>Use <b>Fetch Conditions</b> to build the condition list from the Tool Condition master. One item code is created per condition on submit.</p>"
+   "options": "<p class=\"text-muted small\">Use <b>Fetch Conditions</b> to build the condition list from the Tool Condition master. One item code is created per condition on submit.</p>"
   },
   {
    "fieldname": "conditions",
@@ -135,12 +159,153 @@
    "options": "TMS Tool Registration",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "sb_spec",
+   "fieldtype": "Section Break",
+   "label": "Specification"
+  },
+  {
+   "fieldname": "tool_specification",
+   "fieldtype": "Small Text",
+   "label": "Tool Specification"
+  },
+  {
+   "fieldname": "column_break_imqa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tool_material",
+   "fieldtype": "Data",
+   "label": "Tool Material"
+  },
+  {
+   "description": "Applicable to indexable tooling such as inserts.",
+   "fieldname": "number_of_indexes",
+   "fieldtype": "Int",
+   "label": "Number of Indexes"
+  },
+  {
+   "fieldname": "sb_regrind",
+   "fieldtype": "Section Break",
+   "label": "Regrinding"
+  },
+  {
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.is_regrindable",
+   "fieldname": "max_regrind_count",
+   "fieldtype": "Int",
+   "label": "Maximum Regrind Count"
+  },
+  {
+   "fieldname": "column_break_eriq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.is_regrindable",
+   "fieldname": "standard_regrind_cost",
+   "fieldtype": "Currency",
+   "label": "Standard Regrind Cost"
+  },
+  {
+   "fieldname": "sb_life",
+   "fieldtype": "Section Break",
+   "label": "Planned Life and Cost"
+  },
+  {
+   "description": "Expected number of components produced by a new tool.",
+   "fieldname": "planned_new_tool_life",
+   "fieldtype": "Float",
+   "label": "Planned New Tool Life"
+  },
+  {
+   "depends_on": "eval:doc.is_regrindable",
+   "fieldname": "planned_reground_tool_life",
+   "fieldtype": "Float",
+   "label": "Planned Reground Tool Life"
+  },
+  {
+   "fieldname": "column_break_zusa",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "standard_new_tool_cost",
+   "fieldtype": "Currency",
+   "label": "Standard New Tool Cost"
+  },
+  {
+   "default": "0",
+   "fieldname": "lead_time_days",
+   "fieldtype": "Int",
+   "label": "Lead Time (Days)"
+  },
+  {
+   "fieldname": "sb_actual",
+   "fieldtype": "Section Break",
+   "label": "Actual Purchase Cost"
+  },
+  {
+   "description": "Rolled up from submitted Purchase Receipts for items of this tool type.",
+   "fieldname": "actual_avg_purchase_cost",
+   "fieldtype": "Currency",
+   "label": "Average Purchase Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_purchase_cost",
+   "fieldtype": "Currency",
+   "label": "Last Purchase Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_krcf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_purchase_date",
+   "fieldtype": "Date",
+   "label": "Last Purchase Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "purchase_qty",
+   "fieldtype": "Float",
+   "label": "Quantity Purchased",
+   "read_only": 1
+  },
+  {
+   "description": "Average purchase cost against the standard new tool cost.",
+   "fieldname": "cost_variance_pct",
+   "fieldtype": "Percent",
+   "label": "Actual vs Standard (%)",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "is_regrindable",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Regrindable"
+  },
+  {
+   "fieldname": "fetch_conditions",
+   "fieldtype": "Button",
+   "label": "Fetch Conditions"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "make",
+   "fieldtype": "Link",
+   "label": "Make",
+   "options": "Brand"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-27 19:20:34.150614",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Registration",
@@ -154,7 +319,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -170,7 +334,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -186,7 +349,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -202,7 +364,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -214,7 +375,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -224,7 +384,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -234,7 +393,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -242,6 +400,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "physical_tool_code,tool_type",
  "sort_field": "modified",
  "sort_order": "DESC",

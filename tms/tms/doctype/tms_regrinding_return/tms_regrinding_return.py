@@ -18,26 +18,27 @@ class TMSRegrindingReturn(Document):
 	"""
 
 	def validate(self):
-		self.set_warehouses()
+		#self.set_warehouses()
 		self.validate_items()
 
 	def set_warehouses(self):
-		warehouses = frappe.db.get_value(
-			"TMS Customer Location", self.tms_location,
-			["used_tool_warehouse", "head_office_warehouse"], as_dict=True
-		)
-		self.source_warehouse = warehouses.used_tool_warehouse
-		if not self.target_warehouse:
-			self.target_warehouse = warehouses.head_office_warehouse
-
-		if not self.target_warehouse:
-			frappe.throw(
-				_("Set a Head Office Receiving Warehouse on TMS Customer Location {0}, "
-				  "or choose one on this document.").format(self.tms_location)
+		if self.tms_location:
+			warehouses = frappe.db.get_value(
+				"TMS Customer Location", self.tms_location,
+				["used_tool_warehouse", "head_office_warehouse"], as_dict=True
 			)
+			self.source_warehouse = warehouses.used_tool_warehouse
+			if not self.target_warehouse:
+				self.target_warehouse = warehouses.head_office_warehouse
 
-		if self.source_warehouse == self.target_warehouse:
-			frappe.throw(_("Source and target warehouse cannot be the same."))
+			if not self.target_warehouse:
+				frappe.throw(
+					_("Set a Head Office Receiving Warehouse on TMS Customer Location {0}, "
+				  	"or choose one on this document.").format(self.tms_location)
+				)
+
+			if self.source_warehouse == self.target_warehouse:
+				frappe.throw(_("Source and target warehouse cannot be the same."))
 
 	def validate_items(self):
 		if not self.items:
@@ -48,16 +49,17 @@ class TMSRegrindingReturn(Document):
 
 			row.current_regrind_count = tms_validate.get_serial_regrind_cycle(row.serial_no)
 			row.max_regrind_count = frappe.db.get_value(
-				"TMS Tool Type", row.tool_type, "max_regrind_count"
+				"TMS Tool Registration", row.tms_tool_registration, "max_regrind_count"
 			) or 0
 
-		stock_utils.validate_stock_available(self.items, self.source_warehouse)
+		#stock_utils.validate_stock_available(self.items, self.source_warehouse)
 
 	def on_submit(self):
-		self.stock_entry = stock_utils.make_transfer(
-			self, self.items, self.source_warehouse, self.target_warehouse
-		)
-		self.db_set("stock_entry", self.stock_entry)
+		if not self.skip_stock_entry:
+			self.stock_entry = stock_utils.make_transfer(
+				self, self.items, self.source_warehouse, self.target_warehouse
+			)
+			self.db_set("stock_entry", self.stock_entry)
 		self.open_regrind_cycles()
 
 	def open_regrind_cycles(self):
@@ -72,6 +74,7 @@ class TMSRegrindingReturn(Document):
 				"regrinding_return": self.name,
 				"physical_tool_code": row.physical_tool_code,
 				"tool_type": row.tool_type,
+				"tool_registration": row.tms_tool_registration,
 				"source_item": row.item_code,
 				"source_serial_no": row.serial_no,
 				"ho_warehouse": self.target_warehouse,

@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 10:00:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -16,6 +16,7 @@
   "tms_location",
   "dispatch_date",
   "return_reason",
+  "transfer_out",
   "sb_wh",
   "source_warehouse",
   "cb_wh",
@@ -29,7 +30,8 @@
   "sb_more",
   "stock_entry",
   "remarks",
-  "amended_from"
+  "amended_from",
+  "skip_stock_entry"
  ],
  "fields": [
   {
@@ -64,8 +66,7 @@
    "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "Customer",
-   "options": "Customer",
-   "reqd": 1
+   "options": "Customer"
   },
   {
    "fieldname": "cb_id",
@@ -77,8 +78,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "TMS Customer Location",
-   "options": "TMS Customer Location",
-   "reqd": 1
+   "options": "TMS Customer Location"
   },
   {
    "default": "Today",
@@ -170,12 +170,24 @@
    "options": "TMS Regrinding Return",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "skip_stock_entry",
+   "fieldtype": "Check",
+   "label": "Skip Stock Entry"
+  },
+  {
+   "fieldname": "transfer_out",
+   "fieldtype": "Link",
+   "label": "Transfer Out",
+   "options": "Transfer Out"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-22 18:04:15.099098",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Regrinding Return",
@@ -189,7 +201,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -205,7 +216,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -221,7 +231,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -237,7 +246,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -249,7 +257,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -259,7 +266,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -269,7 +275,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -277,6 +282,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "tms_location,posting_date",
  "sort_field": "modified",
  "sort_order": "DESC",

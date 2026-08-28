@@ -72,7 +72,7 @@ class TMSToolInstallation(Document):
 		info = tms_validate.get_item_tool_info(self.item_code)
 		flags = tms_validate.get_condition_flags(info.get("tms_tool_condition"))
 		tool_type = frappe.db.get_value(
-			"TMS Tool Type", info.get("tms_tool_type"),
+			"TMS Tool Registration", info.get("custom_tms_tool_registration"),
 			["planned_new_tool_life", "planned_reground_tool_life"], as_dict=True
 		)
 		if not tool_type:

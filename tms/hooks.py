@@ -10,6 +10,27 @@ app_license = "mit"
 
 # required_apps = []
 
+doctype_js = {
+	"TMS Tool Requirement": "public/js/Fetch_NamingSeries_Onload.js",
+	"TMS Tool Receipt": "public/js/Fetch_NamingSeries_Onload.js",
+        "TMS Tool Issue": "public/js/Fetch_NamingSeries_Onload.js",
+	"TMS Tool Return":"public/js/Fetch_NamingSeries_Onload.js",
+	"TMS Tool Installation": "public/js/Fetch_NamingSeries_Onload.js",
+	"TMS Tool Removal": "public/js/Fetch_NamingSeries_Onload.js",
+	"TMS Used Tool Inspection" : "public/js/Fetch_NamingSeries_Onload.js",
+        "TMS Regrind Cycle": "public/js/Fetch_NamingSeries_Onload.js",
+	"TMS Production Declaration": "public/js/Fetch_NamingSeries_Onload.js",
+	"TMS CPC Billing Statement": "public/js/Fetch_NamingSeries_Onload.js"
+}
+
+
+doc_events = {
+	"Subcontracting Receipt": {
+		"after_save": "tms.script.update_regrind_cycle"
+	}
+}
+fixtures = [
+	"Custom Field", "Client Script", "Property Setter", "Print Format"]
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
 # 	{

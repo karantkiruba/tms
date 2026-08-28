@@ -2,7 +2,7 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 19:54:24.478030",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -59,11 +59,11 @@
   {
    "fieldname": "tms_location",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "TMS Customer Location",
-   "options": "TMS Customer Location",
-   "reqd": 1
+   "options": "TMS Customer Location"
   },
   {
    "fieldname": "company",
@@ -109,6 +109,7 @@
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "contract_end_date",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -201,7 +202,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-27 15:06:33.386975",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "CPC Contract",
@@ -215,7 +216,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -231,7 +231,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -247,7 +246,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -259,7 +257,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -269,7 +266,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -279,7 +275,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -287,6 +282,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "customer,tms_location,customer_po_number",
  "sort_field": "modified",
  "sort_order": "DESC",

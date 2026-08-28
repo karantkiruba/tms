@@ -2,12 +2,13 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 20:06:30.763297",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "sb_id",
+  "naming_series_definition",
   "naming_series",
   "posting_date",
   "posting_time",
@@ -16,6 +17,9 @@
   "customer",
   "tms_location",
   "tool_removal",
+  "cost_center",
+  "transfer_out_location",
+  "branch",
   "sb_usage",
   "cpc_component",
   "machine",
@@ -35,7 +39,17 @@
   "sb_more",
   "stock_entry",
   "remarks",
-  "amended_from"
+  "amended_from",
+  "sb_life",
+  "installation_date",
+  "removal_date",
+  "starting_production_counter",
+  "ending_production_counter",
+  "column_break_ybrw",
+  "planned_tool_life",
+  "actual_tool_life",
+  "life_achievement_pct",
+  "tool_life_status"
  ],
  "fields": [
   {
@@ -43,11 +57,10 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "TRET-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "TRET-.YYYY.-",
+   "options": "TRET-.YYYY.-\nTRETS-.YYYY.-\nTRETE-.YYYY.-",
    "reqd": 1
   },
   {
@@ -86,10 +99,10 @@
   {
    "fieldname": "tms_location",
    "fieldtype": "Link",
+   "hidden": 1,
    "in_standard_filter": 1,
    "label": "TMS Customer Location",
-   "options": "TMS Customer Location",
-   "reqd": 1
+   "options": "TMS Customer Location"
   },
   {
    "description": "Optional for non-primary tooling returned in bulk.",
@@ -213,12 +226,96 @@
    "options": "TMS Tool Return",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "naming_series_definition",
+   "fieldtype": "Select",
+   "label": "Naming Series Definition"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer Out Location",
+   "options": "Transfer Out Location"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "sb_life",
+   "fieldtype": "Section Break",
+   "label": "Tool Life Achievement"
+  },
+  {
+   "fieldname": "installation_date",
+   "fieldtype": "Date",
+   "label": "Installation Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "removal_date",
+   "fieldtype": "Date",
+   "label": "Removal Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "starting_production_counter",
+   "fieldtype": "Float",
+   "label": "Starting Production Counter"
+  },
+  {
+   "fieldname": "ending_production_counter",
+   "fieldtype": "Float",
+   "label": "Ending Production Counter",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ybrw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "planned_tool_life",
+   "fieldtype": "Float",
+   "label": "Planned Tool Life",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "actual_tool_life",
+   "fieldtype": "Float",
+   "label": "Actual Tool Life",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "life_achievement_pct",
+   "fieldtype": "Percent",
+   "label": "Life Achievement (%)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tool_life_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tool Life Status",
+   "options": "\nAchieved\nNear Target\nBelow Target\nNot Measured",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-28 11:47:10.136318",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Return",
@@ -232,7 +329,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -248,7 +344,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -264,7 +359,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -280,7 +374,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -292,7 +385,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -302,7 +394,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -312,7 +403,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -320,6 +410,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "cpc_component,tms_location",
  "sort_field": "modified",
  "sort_order": "DESC",

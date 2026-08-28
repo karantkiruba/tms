@@ -182,7 +182,7 @@ def make_repack(doc, consume_rows, produce_rows, warehouse, additional_cost=0,
 			"uom": frappe.db.get_value("Item", row["item_code"], "stock_uom"),
 			"conversion_factor": 1,
 			"is_finished_item": 1,
-			"allow_zero_valuation_rate": 0,
+			"allow_zero_valuation_rate": 1,
 		}
 		if row.get("serial_no"):
 			item["use_serial_batch_fields"] = 1

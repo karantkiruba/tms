@@ -28,11 +28,12 @@ class TMSToolRequirement(Document):
 	@frappe.whitelist()
 	def calculate_requirement(self):
 		"""Build the requirement rows from PFEP and current stock position."""
-		if not self.tms_location:
-			frappe.throw(_("Select the TMS Customer Location first."))
+		#if not self.tms_location:
+			#frappe.throw(_("Select the TMS Customer Location first."))
 
 		rows = planning.build_requirement_rows(
-			tms_location=self.tms_location,
+			source_warehouse=self.source_warehouse,
+			target_warehouse=self.target_warehouse,
 			cpc_component=self.cpc_component,
 			posting_date=self.posting_date,
 			monthly_volume_override=self.monthly_production_plan,
@@ -46,7 +47,7 @@ class TMSToolRequirement(Document):
 		self.set_totals()
 		return len(rows)
 
-	@frappe.whitelist()
+	#@frappe.whitelist()
 	def make_material_request(self):
 		"""Raise a standard ERPNext Material Request for the requested quantities."""
 		if self.docstatus != 1:
@@ -58,11 +59,10 @@ class TMSToolRequirement(Document):
 		if not lines:
 			frappe.throw(_("No rows carry a requested quantity against an item."))
 
-		warehouse = frappe.db.get_value("TMS Customer Location", self.tms_location,
-		                                "main_warehouse")
+		warehouse = self.source_warehouse
 
 		mr = frappe.new_doc("Material Request")
-		mr.material_request_type = "Material Transfer"
+		mr.material_request_type = "Purchase"
 		mr.company = self.company
 		mr.transaction_date = self.posting_date
 		mr.schedule_date = self.required_date or self.posting_date
@@ -82,7 +82,8 @@ class TMSToolRequirement(Document):
 		return mr.name
 
 	def on_submit(self):
-		self.db_set("status", "Approved")
+		#self.db_set("status", "Approved")
+		self.make_material_request()
 
 	def on_cancel(self):
 		if self.material_request and frappe.db.get_value(

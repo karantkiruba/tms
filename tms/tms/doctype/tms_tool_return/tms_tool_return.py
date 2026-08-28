@@ -17,7 +17,7 @@ class TMSToolReturn(Document):
 	"""
 
 	def validate(self):
-		self.set_warehouses()
+		#self.set_warehouses()
 		self.fetch_from_removal()
 		self.validate_items()
 

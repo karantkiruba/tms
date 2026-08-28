@@ -31,7 +31,7 @@ class TMSRegrindCycle(Document):
 
 	def set_regrind_counts(self):
 		tool_type = frappe.db.get_value(
-			"TMS Tool Type", self.tool_type, ["is_regrindable", "max_regrind_count",
+			"TMS Tool Registration", self.tool_registration, ["is_regrindable", "max_regrind_count",
 			                                  "standard_regrind_cost"], as_dict=True
 		)
 		if not tool_type or not tool_type.is_regrindable:
@@ -53,7 +53,8 @@ class TMSRegrindCycle(Document):
 		tms_validate.validate_regrind_capacity(self.source_item, self.source_serial_no)
 
 	def on_submit(self):
-		self.convert_to_rgp()
+		#self.convert_to_rgp()
+		self.db_set("status", "Pending Regrinding")
 
 	def convert_to_rgp(self):
 		"""Consume the incoming condition item and produce Regrinding Pending.
@@ -68,13 +69,27 @@ class TMSRegrindCycle(Document):
 		self.db_set("rgp_stock_entry", entry)
 		self.db_set("status", "Pending Regrinding")
 
-	@frappe.whitelist()
-	def complete_regrind(self, inspection_result=None, regrind_cost=None):
+	#@frappe.whitelist()
+	def complete_regrind(self, inspection_result=None, regrind_cost=None,completed_qty=None):
 		"""Convert RGP to RGF, issue the next-cycle serial and move the count."""
 		if self.docstatus != 1:
 			frappe.throw(_("Submit the regrind cycle before completing it."))
 		if self.status != "Pending Regrinding":
 			frappe.throw(_("This cycle is {0}, not Pending Regrinding.").format(self.status))
+
+		if completed_qty is None:
+			frappe.throw(_("Please enter Completed Qty."))
+
+		completed_qty = flt(completed_qty)
+
+		if completed_qty <= 0:
+			frappe.throw(_("Completed Qty must be greater than zero."))
+
+		if completed_qty > flt(self.qty):
+			frappe.throw(
+				_("Completed Qty {0} cannot be greater than Cycle Qty {1}.")
+				.format(completed_qty, self.qty)
+			)
 
 		result = inspection_result or self.inspection_result
 		if result not in ("Accepted", "Rejected"):
@@ -84,26 +99,34 @@ class TMSRegrindCycle(Document):
 			self.db_set("regrind_cost", flt(regrind_cost))
 
 		if result == "Rejected":
-			return self._complete_as_rejected()
-		return self._complete_as_reground()
+			return self._complete_as_rejected(completed_qty)
+		return self._complete_as_reground(completed_qty)
 
-	def _complete_as_reground(self):
-		serial_no = stock_utils.generate_serial_no(self.rgf_item)
+	def _complete_as_reground(self,completed_qty):
+		completed_qty = int(completed_qty)
 
-		consume = [{"item_code": self.rgp_item, "qty": flt(self.qty) or 1}]
-		produce = [{"item_code": self.rgf_item, "qty": flt(self.qty) or 1,
-		            "serial_no": serial_no}]
+		serial_numbers = []
+
+		for i in range(completed_qty):
+			serial_no = stock_utils.generate_serial_no(self.rgf_item)
+			serial_numbers.append(serial_no)
+
+		serial_no_string = "\n".join(serial_numbers)
+
+		consume = [{"item_code": self.rgp_item, "qty": completed_qty or 1}]
+		produce = [{"item_code": self.rgf_item, "qty": completed_qty,
+		            "serial_no": serial_no_string}]
 
 		entry = stock_utils.make_repack(
 			self, consume, produce, self.ho_warehouse,
 			additional_cost=flt(self.regrind_cost),
 			cost_description=_("Regrinding charges for {0}").format(self.physical_tool_code),
 		)
-
-		self.stamp_serial(serial_no)
+		for serial_no in serial_numbers:
+			self.stamp_serial(serial_no)
 
 		self.db_set("rgf_stock_entry", entry)
-		self.db_set("output_serial_no", serial_no)
+		self.db_set("output_serial_no", serial_no_string)
 		self.db_set("inspection_result", "Accepted")
 		self.db_set("completed_regrind_count", self.cycle_number)
 		self.db_set("remaining_regrinds", flt(self.max_regrind_count) - flt(self.cycle_number))
@@ -111,11 +134,11 @@ class TMSRegrindCycle(Document):
 
 		frappe.msgprint(
 			_("Regrind cycle {0} completed. {1} issued at regrind count {2} of {3}.").format(
-				self.cycle_number, serial_no, self.cycle_number, self.max_regrind_count
+				self.cycle_number, serial_no, self.cycle_number,completed_qty, self.max_regrind_count
 			),
 			indicator="green", alert=True,
 		)
-		return serial_no
+		return serial_no_string
 
 	def stamp_serial(self, serial_no):
 		"""Carry the tool's identity and cycle onto the new serial.
@@ -187,3 +210,13 @@ def get_regrind_status(physical_tool_code):
 		"max_regrind_count": max_count,
 		"remaining_regrinds": max_count - len(completed),
 	}
+
+@frappe.whitelist()
+def complete_regrind(docname, inspection_result=None, regrind_cost=None, completed_qty=None):
+    doc = frappe.get_doc("TMS Regrind Cycle", docname)
+
+    return doc.complete_regrind(
+        inspection_result=inspection_result,
+        regrind_cost=regrind_cost,
+        completed_qty=completed_qty
+    )

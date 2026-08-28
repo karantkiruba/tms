@@ -2,12 +2,13 @@
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 20:06:28.549635",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "sb_id",
+  "naming_series_definition",
   "naming_series",
   "posting_date",
   "company",
@@ -16,6 +17,9 @@
   "customer",
   "tms_location",
   "tool_issue",
+  "cost_center",
+  "transfer_out_location",
+  "branch",
   "sb_usage",
   "cpc_component",
   "machine",
@@ -52,11 +56,10 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "TRMV-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
-   "options": "TRMV-.YYYY.-",
+   "options": "TRMV-.YYYY.-\nTRMVS-.YYYY.-\nTRMVE-.YYYY.-",
    "reqd": 1
   },
   {
@@ -286,12 +289,35 @@
    "options": "TMS Tool Removal",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "naming_series_definition",
+   "fieldtype": "Select",
+   "label": "Naming Series Definition"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer Out Location",
+   "options": "Transfer Out Location"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-08-26 23:01:08.543094",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Removal",
@@ -305,7 +331,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -321,7 +346,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -337,7 +361,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -353,7 +376,6 @@
    "delete": 1,
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -365,7 +387,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -375,7 +396,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -385,7 +405,6 @@
   {
    "email": 1,
    "export": 1,
-   "permlevel": 0,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -393,6 +412,7 @@
    "share": 1
   }
  ],
+ "row_format": "Dynamic",
  "search_fields": "item_code,serial_no,cpc_component",
  "sort_field": "modified",
  "sort_order": "DESC",

@@ -58,7 +58,7 @@ class PFEPToolingPlan(Document):
 
 		for key, rows in by_operation.items():
 			if len(rows) > 1:
-				frappe.throw(
+				frappe.msgprint(
 					_("Machine {0} Operation {1} has more than one primary tool (rows {2}). "
 					  "Tool life is measured against a single primary tool.").format(
 						key[0], key[1], ", ".join(str(r) for r in rows)

@@ -19,19 +19,19 @@ class TMSToolIssue(Document):
 	"""
 
 	def validate(self):
-		self.set_warehouses()
+		#self.set_warehouses()
 		tms_validate.validate_active_contract(self.cpc_contract, self.cpc_component, self.posting_date)
 		tms_validate.validate_machine_operation(self.cpc_component, self.machine, self.operation)
 		self.validate_items()
 		self.set_totals()
 
-	def set_warehouses(self):
-		warehouses = frappe.db.get_value(
-			"TMS Customer Location", self.tms_location,
-			["main_warehouse", "shopfloor_warehouse"], as_dict=True
-		)
-		self.source_warehouse = warehouses.main_warehouse
-		self.target_warehouse = warehouses.shopfloor_warehouse
+	#def set_warehouses(self):
+		#warehouses = frappe.db.get_value(
+		#	"TMS Customer Location", self.tms_location,
+		#	["main_warehouse", "shopfloor_warehouse"], as_dict=True
+		#)
+		#self.source_warehouse = warehouses.main_warehouse
+		#self.target_warehouse = warehouses.shopfloor_warehouse
 
 	def validate_items(self):
 		if not self.items:
@@ -54,7 +54,7 @@ class TMSToolIssue(Document):
 			row.regrind_cycle = tms_validate.get_serial_regrind_cycle(row.serial_no)
 
 			standard_qty, pfep_row = tms_validate.get_pfep_standard_qty(
-				pfep, info.get("tms_tool_type"), self.machine, self.operation
+				pfep, info.get("custom_tms_tool_registration"), self.machine, self.operation
 			)
 			row.pfep_standard_qty = standard_qty
 			row.additional_qty = max(flt(row.qty) - flt(standard_qty), 0)
@@ -73,7 +73,7 @@ class TMSToolIssue(Document):
 				primary_rows.append(row.idx)
 
 		if len(primary_rows) > 1:
-			frappe.throw(
+			frappe.msgprint(
 				_("Rows {0} are all marked as the primary tool. Only one primary tool may be "
 				  "issued per machine and operation.").format(", ".join(str(r) for r in primary_rows))
 			)
