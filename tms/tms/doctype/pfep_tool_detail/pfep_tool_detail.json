@@ -82,6 +82,7 @@
   },
   {
    "columns": 2,
+   "fetch_from": "new_tool_code.tms_tool_type",
    "fieldname": "tool_type",
    "fieldtype": "Link",
    "in_list_view": 1,
@@ -115,7 +116,8 @@
    "fieldname": "new_tool_code",
    "fieldtype": "Link",
    "label": "New Tool Item",
-   "options": "Item"
+   "options": "Item",
+   "reqd": 1
   },
   {
    "fieldname": "reground_tool_code",
@@ -170,7 +172,8 @@
    "fetch_from": "tool_type.number_of_indexes",
    "fieldname": "number_of_indexes",
    "fieldtype": "Int",
-   "label": "Number of Indexes"
+   "label": "Number of Indexes",
+   "reqd": 1
   },
   {
    "fieldname": "cb_qty",
@@ -293,6 +296,7 @@
    "label": "Remarks"
   },
   {
+   "fetch_from": "new_tool_code.custom_tms_tool_registration",
    "fieldname": "tms_tool_registration",
    "fieldtype": "Link",
    "label": "TMS Tool Registration",
@@ -303,7 +307,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-08-27 18:55:23.681532",
+ "modified": "2026-08-29 18:04:47.022031",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "PFEP Tool Detail",

@@ -24,11 +24,11 @@ doctype_js = {
 }
 
 
-doc_events = {
-	"Subcontracting Receipt": {
-		"after_save": "tms.script.update_regrind_cycle"
-	}
-}
+#doc_events = {
+	#"Subcontracting Receipt": {
+	#	"after_save": "tms.script.update_regrind_cycle"
+	#}
+#}
 fixtures = [
 	"Custom Field", "Client Script", "Property Setter", "Print Format"]
 # Each item in the list will be shown as an app in the apps page

@@ -11,9 +11,9 @@
   "naming_series",
   "customer",
   "tms_location",
-  "cpc_component",
-  "cb_id",
   "production_line",
+  "cb_id",
+  "cpc_component",
   "monthly_planned_volume",
   "status",
   "sb_validity",
@@ -28,6 +28,7 @@
   "revisions",
   "sb_appr",
   "prepared_by",
+  "prepared_by_name",
   "cb_appr",
   "approved_by",
   "sb_more",
@@ -48,6 +49,7 @@
    "reqd": 1
   },
   {
+   "fetch_from": "cpc_component.customer",
    "fieldname": "customer",
    "fieldtype": "Link",
    "in_standard_filter": 1,
@@ -199,12 +201,19 @@
    "options": "PFEP Tooling Plan",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "prepared_by.full_name",
+   "fieldname": "prepared_by_name",
+   "fieldtype": "Data",
+   "label": "Prepared By Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-27 14:12:39.186059",
+ "modified": "2026-08-29 18:08:51.477332",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "PFEP Tooling Plan",

@@ -16,7 +16,7 @@ class TMSToolInstallation(Document):
 	"""
 
 	def validate(self):
-		self.validate_against_issue()
+		#self.validate_against_issue()
 		self.validate_not_already_installed()
 		self.set_life_reference()
 

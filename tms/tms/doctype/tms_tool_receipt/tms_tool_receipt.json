@@ -137,6 +137,7 @@
    "description": "Optional cost lineage for newly purchased tools. Sets the source warehouse.",
    "fieldname": "purchase_receipt",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Purchase Receipt",
    "options": "Purchase Receipt"
   },
@@ -149,11 +150,13 @@
   {
    "fieldname": "delivery_challan",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Delivery Challan"
   },
   {
    "fieldname": "dispatch_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Dispatch Date"
   },
   {
@@ -251,7 +254,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-28 18:59:19.281202",
+ "modified": "2026-08-31 10:25:54.196618",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Receipt",

@@ -5,7 +5,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt
-
+from frappe.utils import nowdate, nowtime
 from tms.utils import stock as stock_utils
 from tms.utils import validation as tms_validate
 
@@ -24,6 +24,9 @@ class TMSToolIssue(Document):
 		tms_validate.validate_machine_operation(self.cpc_component, self.machine, self.operation)
 		self.validate_items()
 		self.set_totals()
+
+	#def on_submit(self):
+	#	self.create_tool_installations()
 
 	#def set_warehouses(self):
 		#warehouses = frappe.db.get_value(
@@ -95,7 +98,30 @@ class TMSToolIssue(Document):
 		self.db_set("stock_entry", self.stock_entry)
 		self.reload()
 		self.db_set("total_issue_value", sum(flt(row.issue_value) for row in self.items))
+		self.create_tool_installations()
 
 	def on_cancel(self):
 		self.ignore_linked_doctypes = ("Stock Entry", "Stock Ledger Entry", "GL Entry")
 		stock_utils.cancel_linked_stock_entry(self)
+
+
+	def create_tool_installations(self):
+		for row in self.items:
+			if not row.item_code:
+				continue
+			installation = frappe.new_doc("TMS Tool Installation")
+
+			installation.tool_issue = self.name
+			installation.cpc_component = self.cpc_component
+			installation.machine = self.machine
+			installation.production_line = self.production_line
+			installation.operation = self.operation
+			installation.item_code = row.item_code
+			installation.serial_no = row.serial_no
+			installation.customer = self.customer
+			installation.installation_date = nowdate()
+			installation.installation_time = nowtime()
+
+			installation.insert(ignore_permissions=True)
+		frappe.msgprint("TMS Tool Installation documents created successfully.")
+

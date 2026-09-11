@@ -1,6 +1,6 @@
 {
  "actions": [],
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 20:06:31.183599",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -10,8 +10,10 @@
   "tool_condition",
   "qty",
   "issue_value",
+  "cost_center",
   "cb_1",
   "uom",
+  "add_serial_no",
   "serial_no",
   "tool_type",
   "physical_tool_code",
@@ -161,17 +163,29 @@
    "fieldname": "remarks",
    "fieldtype": "Small Text",
    "label": "Remarks"
+  },
+  {
+   "fieldname": "add_serial_no",
+   "fieldtype": "Button",
+   "label": "Add Serial No"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-09-04 11:19:47.771065",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Issue Item",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

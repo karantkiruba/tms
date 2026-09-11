@@ -58,7 +58,7 @@ def get_data(filters):
 		       tt.max_regrind_count
 		from tabItem i
 		left join `tabTMS Tool Condition` c on c.name = i.tms_tool_condition
-		left join `tabTMS Tool Type` tt on tt.name = i.tms_tool_type
+		left join `tabTMS Tool Registration` tt on tt.name = i.custom_tms_tool_registration
 		{join} join tabBin b on b.item_code = i.name and b.actual_qty > 0
 		where {conditions}
 		order by i.tms_physical_tool_code, c.sort_order

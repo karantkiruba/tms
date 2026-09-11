@@ -231,14 +231,13 @@
    "description": "Machine counter or cumulative production quantity at installation.",
    "fieldname": "starting_production_counter",
    "fieldtype": "Float",
-   "label": "Starting Production Counter",
-   "reqd": 1
+   "label": "Starting Production Counter"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "planned_tool_life",
    "fieldtype": "Float",
-   "label": "Planned Tool Life",
-   "read_only": 1
+   "label": "Planned Tool Life"
   },
   {
    "fieldname": "sb_more",
@@ -288,25 +287,33 @@
    "fieldname": "cost_center",
    "fieldtype": "Link",
    "label": "Cost Center",
-   "options": "Cost Center"
+   "options": "Cost Center",
+   "read_only": 1
   },
   {
    "fieldname": "transfer_out_location",
    "fieldtype": "Link",
    "label": "Transfer Out Location",
-   "options": "Transfer Out Location"
+   "options": "Transfer Out Location",
+   "read_only": 1
   },
   {
    "fieldname": "branch",
    "fieldtype": "Link",
    "label": "Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2026-08-26 23:13:17.373038",
+ "links": [
+  {
+   "link_doctype": "TMS Tool Removal",
+   "link_fieldname": "tool_installation"
+  }
+ ],
+ "modified": "2026-09-08 15:22:45.230984",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Installation",

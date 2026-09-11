@@ -37,6 +37,7 @@ def get_columns():
 		 "width": 100},
 		{"label": _("Billing Status"), "fieldname": "billing_status", "fieldtype": "Data",
 		 "width": 130},
+		{"label": _("Branch"), "fieldname": "branch", "fieldtype": "Link","options": "Branch","width": 130}
 	]
 
 
@@ -56,7 +57,7 @@ def get_data(filters):
 
 	rows = frappe.db.sql(
 		"""
-		select i.production_date, i.parent, i.cpc_component, i.machine,
+		select i.production_date, i.parent, i.cpc_component, i.machine,d.branch,
 		       i.gross_production, i.rejection_qty, i.rework_qty, i.accepted_qty,
 		       i.customer_confirmed_qty, i.cpc_rate, i.billable_qty,
 		       i.billed_qty, i.unbilled_qty, i.billing_status

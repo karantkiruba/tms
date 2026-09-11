@@ -42,6 +42,7 @@ def make_transfer(doc, rows, source_warehouse, target_warehouse, purpose="Materi
 			"qty": flt(row.qty),
 			"uom": row.uom or frappe.db.get_value("Item", row.item_code, "stock_uom"),
 			"conversion_factor": 1,
+			"cost_center": row.cost_center,
 		}
 		if purpose in ("Material Transfer", "Material Issue"):
 			item["s_warehouse"] = source_warehouse
@@ -116,7 +117,7 @@ def get_valuation_rate(item_code, warehouse):
 	transfer will carry. TMS reads it rather than letting anyone type a cost.
 	"""
 	return flt(frappe.db.get_value(
-		"Bin", {"item_code": item_code, "warehouse": warehouse}, "valuation_rate"
+		"Item", {"name": item_code}, "valuation_rate"
 	))
 
 
@@ -136,6 +137,28 @@ def validate_stock_available(rows, warehouse):
 				title=_("Insufficient Stock"),
 			)
 
+
+def get_item_valuation_rate(item_code, warehouse):
+	"""Get item valuation rate from warehouse."""
+
+	rate = frappe.db.get_value(
+		"Bin",
+		{
+			"item_code": item_code,
+			"warehouse": warehouse
+		},
+		"valuation_rate"
+	)
+
+	# Fallback to Item Master valuation rate
+	if not flt(rate):
+		rate = frappe.db.get_value(
+			"Item",
+			item_code,
+			"valuation_rate"
+		)
+
+	return flt(rate)
 
 def make_repack(doc, consume_rows, produce_rows, warehouse, additional_cost=0,
                 cost_description=None):
@@ -158,13 +181,22 @@ def make_repack(doc, consume_rows, produce_rows, warehouse, additional_cost=0,
 	se.tms_location = getattr(doc, "tms_location", None)
 	se.tms_cpc_component = getattr(doc, "cpc_component_last_used", None)
 
+	total_consumed_value = 0
+	total_produced_qty = 0
+
+
 	for row in consume_rows:
+		valuation_rate = get_item_valuation_rate(row["item_code"],warehouse)
+		qty = flt(row["qty"])
+		total_consumed_value += valuation_rate * qty
 		item = {
 			"item_code": row["item_code"],
 			"qty": flt(row["qty"]),
 			"s_warehouse": warehouse,
 			"uom": frappe.db.get_value("Item", row["item_code"], "stock_uom"),
 			"conversion_factor": 1,
+			"basic_rate": valuation_rate,
+			"cost_center": getattr(doc, "cost_center", None),
 			# ERPNext forces the finished-good rate to zero when this flag is set,
 			# which would throw away the tool's value across the conversion.
 			"allow_zero_valuation_rate": 0,
@@ -175,6 +207,15 @@ def make_repack(doc, consume_rows, produce_rows, warehouse, additional_cost=0,
 		se.append("items", item)
 
 	for row in produce_rows:
+
+		total_produced_qty += flt(row["qty"])
+
+	produced_valuation_rate = 0
+	if total_produced_qty:
+		produced_valuation_rate = (total_consumed_value / total_produced_qty)
+
+	for row in produce_rows:
+		valuation_rate = get_item_valuation_rate(row["item_code"],warehouse)
 		item = {
 			"item_code": row["item_code"],
 			"qty": flt(row["qty"]),
@@ -182,7 +223,9 @@ def make_repack(doc, consume_rows, produce_rows, warehouse, additional_cost=0,
 			"uom": frappe.db.get_value("Item", row["item_code"], "stock_uom"),
 			"conversion_factor": 1,
 			"is_finished_item": 1,
-			"allow_zero_valuation_rate": 1,
+			"basic_rate": produced_valuation_rate,
+			"allow_zero_valuation_rate": 0,
+			"cost_center": getattr(doc, "cost_center", None),
 		}
 		if row.get("serial_no"):
 			item["use_serial_batch_fields"] = 1

@@ -76,8 +76,8 @@ def get_data(filters):
 
 	rows = frappe.db.sql(
 		f"""
-		select b.warehouse, b.item_code, b.actual_qty, b.valuation_rate,
-		       b.stock_value, i.tms_tool_type as tool_type,w.warehouse_type as warehouse_role,
+		select b.warehouse, b.item_code, b.actual_qty, i.valuation_rate,
+		       b.actual_qty * i.valuation_rate as stock_value, i.tms_tool_type as tool_type,w.warehouse_type as warehouse_role,
 		       i.tms_physical_tool_code as physical_tool_code,
 		       c.condition_name
 		from tabBin b

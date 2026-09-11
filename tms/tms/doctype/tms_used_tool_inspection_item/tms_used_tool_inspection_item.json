@@ -10,7 +10,9 @@
   "qty",
   "inspection_result",
   "disposition",
+  "cost_center",
   "cb_1",
+  "add_serial_no",
   "serial_no",
   "uom",
   "tool_condition",
@@ -152,12 +154,24 @@
    "label": "TMS Tool Registration",
    "options": "TMS Tool Registration",
    "read_only": 1
+  },
+  {
+   "fieldname": "add_serial_no",
+   "fieldtype": "Button",
+   "label": "Add Serial No"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-08-22 16:37:39.987589",
+ "modified": "2026-09-03 10:28:41.581403",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Used Tool Inspection Item",

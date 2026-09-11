@@ -13,6 +13,7 @@
   "posting_date",
   "posting_time",
   "company",
+  "tms_tool_return",
   "cb_id",
   "customer",
   "tms_location",
@@ -199,25 +200,34 @@
    "fieldname": "cost_center",
    "fieldtype": "Link",
    "label": "Cost Center",
-   "options": "Cost Center"
+   "options": "Cost Center",
+   "read_only": 1
   },
   {
    "fieldname": "transfer_out_location",
    "fieldtype": "Link",
    "label": "Transfer Out Location",
-   "options": "Transfer Out Location"
+   "options": "Transfer Out Location",
+   "read_only": 1
   },
   {
    "fieldname": "branch",
    "fieldtype": "Link",
    "label": "Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tms_tool_return",
+   "fieldtype": "Link",
+   "label": "TMS Tool Return",
+   "options": "TMS Tool Return"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-26 23:48:38.632644",
+ "modified": "2026-09-08 15:51:09.822350",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Used Tool Inspection",

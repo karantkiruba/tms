@@ -115,7 +115,8 @@ def get_tool_issue(filters):
 		from `tabTMS Tool Issue Item` item
 		inner join `tabTMS Tool Issue` issue on issue.name = item.parent
 		left join `tabTMS Tool Condition` cond on cond.name = item.tool_condition
-		left join `tabTMS Tool Type` tt on tt.name = item.tool_type
+		Left join `tabItem` i on i.name = item.item_code
+		LEFT JOIN `tabTMS Tool Registration` tt ON tt.name = i.custom_tms_tool_registration
 		where {conditions}
 		""".format(conditions=" and ".join(conditions)),
 		values, as_dict=True,

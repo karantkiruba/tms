@@ -121,7 +121,6 @@
   {
    "fieldname": "sb_regrind",
    "fieldtype": "Section Break",
-   "hidden": 1,
    "label": "Regrinding"
   },
   {
@@ -235,7 +234,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-21 22:39:18.068341",
+ "modified": "2026-08-29 13:49:24.530090",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Type",

@@ -129,7 +129,7 @@ class TMSUsedToolInspection(Document):
 				"qty": row.qty
 			}]
 
-			entry = stock_utils.make_repack(
+			self.regrind_stock_entry = stock_utils.make_repack(
 				self,
 				consume,
 				produce,

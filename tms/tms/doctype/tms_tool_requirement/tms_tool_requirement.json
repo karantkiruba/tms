@@ -146,7 +146,7 @@
   {
    "fieldname": "calc_html",
    "fieldtype": "HTML",
-   "options": "<p class=\"text-muted small\">Use <b>Calculate Requirement</b> to build the rows from the approved PFEP, current usable stock, expected reground tools and everything already on order.</p>"
+   "options": "<p class=\"text-muted small\">Use <b>Calculate Requirement</b> to build the rows from the approved PFEP, current usable stock, expected reground tools and everything already on order.</p>\nGross Requirement = (Monthly Planned Volume/Tool Life)*Tools per Assembly*Assemblies per Machine\n\n"
   },
   {
    "fieldname": "items",
@@ -210,12 +210,14 @@
   {
    "fieldname": "source_warehouse",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Source Warehouse",
    "options": "Warehouse"
   },
   {
    "fieldname": "target_warehouse",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Target Warehouse",
    "options": "Warehouse"
   },
@@ -228,7 +230,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-26 22:58:30.622453",
+ "modified": "2026-08-29 00:14:29.438261",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Requirement",

@@ -183,7 +183,7 @@ def resolve_preferred_item(tool_registration):
 		select i.name
 		from tabItem i
 		inner join `tabTMS Tool Condition` c on c.name = i.tms_tool_condition
-		where i.custom_tms_tool_registration = %(tool_registration)s and c.is_usable = 1 and i.disabled = 0
+		where i.custom_tms_tool_registration = %(tool_registration)s and c.name = 'N' and i.disabled = 0
 		""",
 		{"tool_registration": tool_registration},
 		pluck=True,

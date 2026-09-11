@@ -1,6 +1,6 @@
 {
  "actions": [],
- "creation": "2026-08-18 10:00:00.000000",
+ "creation": "2026-08-18 10:00:00",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -17,6 +17,7 @@
   "remaining_unbilled_qty",
   "sb_val",
   "cpc_rate",
+  "cost_center",
   "cb_val",
   "billing_value"
  ],
@@ -48,7 +49,6 @@
   {
    "fieldname": "declaration_item",
    "fieldtype": "Data",
-   "hidden": 1,
    "label": "Declaration Row",
    "read_only": 1,
    "reqd": 1
@@ -113,17 +113,24 @@
    "in_list_view": 1,
    "label": "Billing Value",
    "read_only": 1
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-08-18 10:00:00.000000",
+ "modified": "2026-09-03 10:53:28.261311",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS CPC Billing Item",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

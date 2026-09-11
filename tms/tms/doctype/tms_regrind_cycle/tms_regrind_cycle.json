@@ -69,6 +69,7 @@
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
@@ -160,6 +161,7 @@
    "description": "Blank on the first cycle, when the tool is still a new item.",
    "fieldname": "source_serial_no",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Incoming Serial No"
   },
   {
@@ -215,27 +217,27 @@
    "bold": 1,
    "fieldname": "cycle_number",
    "fieldtype": "Int",
+   "hidden": 1,
    "in_list_view": 1,
-   "label": "This Cycle Number",
-   "read_only": 1
+   "label": "This Cycle Number"
   },
   {
    "fieldname": "completed_regrind_count",
    "fieldtype": "Int",
-   "label": "Completed Regrind Count",
-   "read_only": 1
+   "hidden": 1,
+   "label": "Completed Regrind Count"
   },
   {
    "fieldname": "max_regrind_count",
    "fieldtype": "Int",
-   "label": "Maximum Regrind Count",
-   "read_only": 1
+   "hidden": 1,
+   "label": "Maximum Regrind Count"
   },
   {
    "fieldname": "remaining_regrinds",
    "fieldtype": "Int",
-   "label": "Remaining Regrinds",
-   "read_only": 1
+   "hidden": 1,
+   "label": "Remaining Regrinds"
   },
   {
    "fieldname": "sb_proc",
@@ -267,6 +269,7 @@
    "options": "Subcontracting Receipt"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "inspection_result",
    "fieldtype": "Select",
    "label": "Inspection Result",
@@ -282,6 +285,7 @@
    "description": "Carries this cycle's regrind count.",
    "fieldname": "output_serial_no",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Reground Serial No",
    "read_only": 1
   },
@@ -338,19 +342,22 @@
    "fieldname": "cost_center",
    "fieldtype": "Link",
    "label": "Cost Center",
-   "options": "Cost Center"
+   "options": "Cost Center",
+   "read_only": 1
   },
   {
    "fieldname": "transfer_out_location",
    "fieldtype": "Link",
    "label": "Transfer Out Location",
-   "options": "Transfer Out Location"
+   "options": "Transfer Out Location",
+   "read_only": 1
   },
   {
    "fieldname": "branch",
    "fieldtype": "Link",
    "label": "Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "read_only": 1
   },
   {
    "fieldname": "regrind_count_detail",
@@ -362,7 +369,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-28 18:48:38.139120",
+ "modified": "2026-09-02 01:23:17.867867",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Regrind Cycle",

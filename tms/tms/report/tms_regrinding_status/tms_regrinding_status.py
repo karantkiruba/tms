@@ -4,7 +4,7 @@
 import frappe
 from frappe import _
 from frappe.utils import flt
-
+import re
 
 def execute(filters=None):
 	filters = frappe._dict(filters or {})
@@ -37,6 +37,7 @@ def get_columns():
 		 "width": 130},
 		{"label": _("Posting Date"), "fieldname": "posting_date", "fieldtype": "Date",
 		 "width": 110},
+		{"label": _("Branch"), "fieldname": "branch", "fieldtype": "Link","options": "Branch"}
 	]
 
 
@@ -54,15 +55,29 @@ def get_data(filters):
 		# one cycle left or none, which is when engineering wants advance warning
 		conditions.append("c.remaining_regrinds <= 1")
 
-	return frappe.db.sql(
+	data =  frappe.db.sql(
 		"""
 		select c.name, c.status, c.physical_tool_code, c.tool_type, c.source_item,
 		       c.source_serial_no, c.cycle_number, c.output_serial_no,
 		       c.completed_regrind_count, c.max_regrind_count, c.remaining_regrinds,
-		       c.regrind_cost, c.posting_date
+		       c.regrind_cost, c.posting_date,c.branch
 		from `tabTMS Regrind Cycle` c
 		where {conditions}
 		order by c.posting_date desc, c.physical_tool_code
 		""".format(conditions=" and ".join(conditions)),
 		values, as_dict=True,
 	)
+	result = []
+	for row in data:
+		output_serials = row.output_serial_no
+		if output_serials:
+			serials = re.split(r"[\s,]+", output_serials.strip())
+			serials = [serial for serial in serials if serial]
+		else:
+			serials = [""]
+
+		for serial in serials:
+			new_row = row.copy()
+			new_row.output_serial_no = serial
+			result.append(new_row)
+	return result

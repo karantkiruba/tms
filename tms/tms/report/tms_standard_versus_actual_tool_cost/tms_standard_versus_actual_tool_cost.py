@@ -13,12 +13,13 @@ def execute(filters=None):
 
 def get_columns():
 	return [
-		{"label": _("Tool Type"), "fieldname": "name", "fieldtype": "Link",
+		{"label": _("Tool Registration"), "fieldname": "name", "fieldtype": "Link",
 		 "options": "TMS Tool Type", "width": 170},
-		{"label": _("Tool Name"), "fieldname": "tool_type_name", "fieldtype": "Data",
-		 "width": 190},
-		{"label": _("Category"), "fieldname": "tool_category", "fieldtype": "Link",
-		 "options": "TMS Tool Category", "width": 140},
+		{"label": _("Tool Name"), "fieldname": "tool_type", "fieldtype": "Data",
+		 "width": 110},
+		{"label": _("Physical Tool Code"), "fieldname": "physical_tool_code", "fieldtype": "Data","width": 160},
+		{"label": _("Description"), "fieldname": "tool_description", "fieldtype": "Data",
+		 "width": 170},
 		{"label": _("Standard Cost"), "fieldname": "standard_new_tool_cost",
 		 "fieldtype": "Currency", "width": 140},
 		{"label": _("Avg Purchase Cost"), "fieldname": "actual_avg_purchase_cost",
@@ -43,20 +44,21 @@ def get_data(filters):
 	conditions = ["1 = 1"]
 	values = {}
 
-	if filters.tool_category:
-		conditions.append("tt.tool_category = %(tool_category)s")
-		values["tool_category"] = filters.tool_category
+	if filters.tool_type:
+		conditions.append("tr.tool_type = %(tool_type)s")
+		values["tool_type"] = filters.tool_type
 	if filters.regrindable_only:
-		conditions.append("tt.is_regrindable = 1")
+		conditions.append("tr.is_regrindable = 1")
 
 	rows = frappe.db.sql(
 		"""
-		select tt.name, tt.tool_type_name, tt.tool_category, tt.standard_new_tool_cost,
-		       tt.actual_avg_purchase_cost, tt.last_purchase_cost, tt.last_purchase_date,
-		       tt.purchase_qty, tt.cost_variance_pct
-		from `tabTMS Tool Type` tt
+		select tr.name, tr.tool_type,tr.physical_tool_code, tr.tool_description, tr.standard_new_tool_cost,
+		       tr.actual_avg_purchase_cost, tr.last_purchase_cost, tr.last_purchase_date,
+		       tr.purchase_qty, tr.cost_variance_pct
+		from `tabTMS Tool Registration` tr
+		INNER JOIN `tabTMS Tool Type` tt ON tt.name = tr.tool_type
 		where {conditions}
-		order by abs(coalesce(tt.cost_variance_pct, 0)) desc, tt.name
+		order by abs(coalesce(tr.cost_variance_pct, 0)) desc, tr.name
 		""".format(conditions=" and ".join(conditions)),
 		values, as_dict=True,
 	)
@@ -71,9 +73,9 @@ def get_data(filters):
 			"""
 			select coalesce(sum(b.stock_value), 0)
 			from tabBin b inner join tabItem i on i.name = b.item_code
-			where i.tms_tool_type = %(tool_type)s
+			where i.custom_tms_tool_registration = %(tool_registration)s
 			""",
-			{"tool_type": row.name},
+			{"tool_registration": row.name},
 		)[0][0])
 
 	if filters.variance_only:

@@ -46,7 +46,8 @@ def get_columns():
 def get_data(filters):
 	"""Sections 41 and 42, computed live from PFEP and the current stock position."""
 	rows = planning.build_requirement_rows(
-		tms_location=filters.tms_location,
+		source_warehouse=filters.source_warehouse,
+		target_warehouse=filters.target_warehouse,
 		cpc_component=filters.cpc_component,
 		posting_date=frappe.utils.nowdate(),
 		monthly_volume_override=filters.monthly_production_plan,

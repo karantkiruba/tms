@@ -212,8 +212,7 @@
   {
    "fieldname": "ending_production_counter",
    "fieldtype": "Float",
-   "label": "Ending Production Counter",
-   "reqd": 1
+   "label": "Ending Production Counter"
   },
   {
    "fieldname": "cb_life",
@@ -299,25 +298,33 @@
    "fieldname": "cost_center",
    "fieldtype": "Link",
    "label": "Cost Center",
-   "options": "Cost Center"
+   "options": "Cost Center",
+   "read_only": 1
   },
   {
    "fieldname": "transfer_out_location",
    "fieldtype": "Link",
    "label": "Transfer Out Location",
-   "options": "Transfer Out Location"
+   "options": "Transfer Out Location",
+   "read_only": 1
   },
   {
    "fieldname": "branch",
    "fieldtype": "Link",
    "label": "Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2026-08-26 23:01:08.543094",
+ "links": [
+  {
+   "link_doctype": "TMS Tool Return",
+   "link_fieldname": "tool_removal"
+  }
+ ],
+ "modified": "2026-09-08 15:28:21.208474",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Removal",

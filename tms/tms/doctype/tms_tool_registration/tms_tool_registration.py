@@ -128,9 +128,18 @@ class TMSToolRegistration(Document):
 			item.item_group = self.item_group
 			item.stock_uom = self.stock_uom
 			item.is_stock_item = 1
-			item.include_item_in_manufacturing = 0
+			item.include_item_in_manufacturing = 1
 			item.is_purchase_item = 1 if condition.condition_code == "N" else 0
 			item.is_sales_item = 1
+			if condition.condition_name in ["Regrinding Pending", "Regrinding Finished"]:
+				item.valuation_rate = self.standard_regrind_cost
+			elif condition.condition_name == "New":
+				item.valuation_rate = self.standard_new_tool_cost
+			else:
+				item.valuation_rate = 0
+			#item.valuation_rate = self.standard_new_tool_cost
+			#item.valuation_rate = self.standard_regrind_cost if condition.condition_name in ["Regrinding Pending", "Regrinding Finished"] else self.standard_new_tool_cost
+			item.custom_is_regrindable = self.is_regrindable
 
 			if condition.serialised:
 				item.has_serial_no = 1
@@ -157,7 +166,35 @@ class TMSToolRegistration(Document):
 				"tax_category": "Out-State"
 			})
 			item.insert(ignore_permissions=True)
+			if condition.condition_name == "Regrinding Finished":
+				frappe.db.set_value("Item",item.name,"is_sub_contracted_item",1)
+				pending_condition = frappe.db.get_value(
+						"TMS Tool Condition",
+						{"condition_name": "Regrinding Pending"},
+						"name"
+				)
 
+				pending_item = frappe.db.get_value(
+						"Item",{"tms_tool_type": self.tool_type,"tms_tool_condition": pending_condition},"name")
+
+				if pending_item:
+					#frappe.db.set_value("Item",pending_item,"is_sub_contracted_item",1)
+
+					if not frappe.db.exists("BOM",{"item": item.item_code,"is_active": 1,"is_default": 1}):
+						bom = frappe.new_doc("BOM")
+						bom.item = item.item_code
+						bom.quantity = 1
+						bom.is_active = 1
+						bom.is_default = 1
+
+						bom.append("items", {
+							"item_code": pending_item,
+							"qty": 1,
+							"uom": self.stock_uom
+						})
+
+						bom.insert(ignore_permissions=True)
+						bom.submit()
 			row.db_set("created", 1)
 			created += 1
 

@@ -4,6 +4,7 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
+from frappe.utils import flt
 
 from tms.utils import stock as stock_utils
 from tms.utils import validation as tms_validate
@@ -81,6 +82,35 @@ class TMSRegrindingReturn(Document):
 				"cpc_component_last_used": row.cpc_component_last_used,
 				"qty": row.qty,
 			})
+			qty = int(flt(row.qty))
+			serial_numbers = []
+			if row.serial_no:
+				serial_numbers = [
+					serial_no.strip()
+					for serial_no in row.serial_no.split("\n")
+					if serial_no.strip()
+				]
+
+			if serial_numbers and len(serial_numbers) != qty:
+				frappe.throw(
+					_(
+						"Qty is {0}, but {1} serial number(s) are selected for Item {2}."
+					).format(
+						qty,
+						len(serial_numbers),
+						row.item_code
+					)
+				)
+
+			for i in range(qty):
+				incoming_serial_no = None
+				if serial_numbers:
+					incoming_serial_no = serial_numbers[i]
+
+				cycle.append("regrind_count_detail", {
+					"incoming_serial_no": incoming_serial_no,
+					"reground_serial_no": None,
+				})
 			cycle.insert(ignore_permissions=True)
 			row.db_set("regrind_cycle", cycle.name)
 			created.append(cycle.name)

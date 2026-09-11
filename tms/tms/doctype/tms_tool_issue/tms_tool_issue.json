@@ -232,6 +232,7 @@
   },
   {
    "allow_bulk_edit": 1,
+   "allow_on_submit": 1,
    "fieldname": "items",
    "fieldtype": "Table",
    "label": "Items",
@@ -314,31 +315,34 @@
    "fieldname": "cost_center",
    "fieldtype": "Link",
    "label": "Cost Center",
-   "options": "Cost Center"
+   "options": "Cost Center",
+   "read_only": 1
   },
   {
    "fieldname": "transfer_out_location",
    "fieldtype": "Link",
    "label": "Transfer Out Location",
-   "options": "Transfer Out Location"
+   "options": "Transfer Out Location",
+   "read_only": 1
   },
   {
    "fieldname": "branch",
    "fieldtype": "Link",
    "label": "Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "read_only": 1
   },
   {
    "fieldname": "sb_life",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Life Measurement"
   },
   {
    "default": "Today",
    "fieldname": "installation_date",
    "fieldtype": "Date",
-   "label": "Installation Date",
-   "reqd": 1
+   "label": "Installation Date"
   },
   {
    "fieldname": "installation_time",
@@ -364,8 +368,17 @@
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2026-08-28 11:38:48.176787",
+ "links": [
+  {
+   "link_doctype": "TMS Tool Installation",
+   "link_fieldname": "tool_issue"
+  },
+  {
+   "link_doctype": "TMS Tool Removal",
+   "link_fieldname": "tool_issue"
+  }
+ ],
+ "modified": "2026-09-08 18:01:35.055551",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Issue",
