@@ -8,14 +8,18 @@
  "engine": "InnoDB",
  "field_order": [
   "sb_id",
+  "naming_series_definition",
   "naming_series",
   "customer",
+  "customer_name",
   "tms_location",
   "production_line",
   "cb_id",
   "cpc_component",
   "monthly_planned_volume",
   "status",
+  "branch",
+  "cost_center",
   "sb_validity",
   "effective_from",
   "effective_to",
@@ -61,7 +65,6 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -208,12 +211,35 @@
    "fieldtype": "Data",
    "label": "Prepared By Name",
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "naming_series_definition",
+   "fieldtype": "Select",
+   "label": "Naming Series Definition"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-29 18:08:51.477332",
+ "modified": "2026-09-17 10:18:53.477790",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "PFEP Tooling Plan",

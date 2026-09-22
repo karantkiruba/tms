@@ -14,11 +14,12 @@
   "tool_description",
   "make",
   "cb_id",
-  "company",
   "item_group",
   "stock_uom",
   "gst_hsn_code",
   "registration_status",
+  "new_location",
+  "rg_location",
   "sb_cond",
   "fetch_conditions",
   "conditions_html",
@@ -88,13 +89,6 @@
   {
    "fieldname": "cb_id",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "label": "Company",
-   "options": "Company",
-   "reqd": 1
   },
   {
    "fieldname": "item_group",
@@ -300,12 +294,22 @@
    "fieldtype": "Link",
    "label": "Make",
    "options": "Brand"
+  },
+  {
+   "fieldname": "new_location",
+   "fieldtype": "Data",
+   "label": "New Location"
+  },
+  {
+   "fieldname": "rg_location",
+   "fieldtype": "Data",
+   "label": "RG Location"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-27 19:20:34.150614",
+ "modified": "2026-09-16 10:11:07.610197",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Registration",

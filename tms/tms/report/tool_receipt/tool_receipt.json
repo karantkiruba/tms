@@ -1,0 +1,67 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-09-15 10:20:32.940035",
+ "disable_prepared_report_automation": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "doctype_to_sync": [],
+ "filters": [
+  {
+   "default": "Today",
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  },
+  {
+   "default": "Today",
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-09-15 11:43:31.484592",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "Tool Receipt",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "Select \nT.name AS \"Document No:Link/TMS Tool Receipt\",\nT.posting_date AS \"Date:Date:100\",\nT.customer AS \"Customer:Link/Customer\",\nT.customer_name AS \"Customer Name\",\nT.receipt_type AS \"Receipt Type\",\nT.transfer_out_location AS \"Transfer Out Location\",\nT.transfer_reference AS \"Transfer Out:Link/Transfer Out\",\nTI.item_code AS \"Item:Link/Item\",\nTI.item_name AS \"Item Name\",\nTI.physical_tool_code AS \"Physical Tool Code\",\nTI.qty AS \"Qty\",\nTI.rate AS \"Rate\",\nTI.amount AS \"Amount\"\n\nFrom `tabTMS Tool Receipt` T\ninner join `tabTMS Tool Receipt Item` TI on TI.parent = T.name\nWhere T.docstatus<2 and T.posting_date between %(from_date)s and %(to_date)s",
+ "ref_doctype": "TMS Tool Receipt",
+ "report_name": "Tool Receipt",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "TMS Manager"
+  },
+  {
+   "role": "TMS Site User"
+  },
+  {
+   "role": "TMS Site Supervisor"
+  },
+  {
+   "role": "TMS Head Office User"
+  },
+  {
+   "role": "TMS Commercial User"
+  },
+  {
+   "role": "TMS Engineering User"
+  }
+ ],
+ "snapshot_report": 0,
+ "timeout": 0
+}

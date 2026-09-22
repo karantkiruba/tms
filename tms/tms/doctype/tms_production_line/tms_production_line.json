@@ -34,8 +34,6 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -65,7 +63,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-26 16:15:35.425019",
+ "modified": "2026-09-15 13:05:21.860616",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Production Line",

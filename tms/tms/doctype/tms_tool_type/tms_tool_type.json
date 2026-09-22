@@ -127,6 +127,7 @@
    "default": "0",
    "fieldname": "is_regrindable",
    "fieldtype": "Check",
+   "hidden": 1,
    "in_list_view": 1,
    "label": "Regrindable"
   },
@@ -234,7 +235,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-29 13:49:24.530090",
+ "modified": "2026-09-16 18:26:56.497958",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Type",

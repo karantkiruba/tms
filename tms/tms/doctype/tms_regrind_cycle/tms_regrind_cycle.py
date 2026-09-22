@@ -283,6 +283,8 @@ class TMSRegrindCycle(Document):
 		produce = [{
 			"item_code": self.rgf_item,
 			"qty": completed_qty,
+			"set_basic_rate_manually":1,
+			"basic_rate": flt(self.regrind_cost),
 			"serial_no": serial_no_string
 		}]
 
@@ -290,15 +292,15 @@ class TMSRegrindCycle(Document):
 			self,
 			consume,
 			produce,
-			self.ho_warehouse,
-			additional_cost=flt(
-				self.regrind_cost
-			),
-			cost_description=_(
-				"Regrinding charges for {0}"
-			).format(
-				self.physical_tool_code
-			)
+			self.ho_warehouse
+			#additional_cost=flt(
+			#	self.regrind_cost
+			#),
+			#cost_description=_(
+			#	"Regrinding charges for {0}"
+			#).format(
+			#	self.physical_tool_code
+			#)
 		)
 
 		for index, serial_no in enumerate(serial_numbers):

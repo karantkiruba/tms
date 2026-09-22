@@ -186,14 +186,15 @@ def make_repack(doc, consume_rows, produce_rows, warehouse, additional_cost=0,
 
 
 	for row in consume_rows:
-		valuation_rate = get_item_valuation_rate(row["item_code"],warehouse)
+		item_code = row["item_code"]
+		valuation_rate = get_item_valuation_rate(item_code,warehouse)
 		qty = flt(row["qty"])
 		total_consumed_value += valuation_rate * qty
 		item = {
-			"item_code": row["item_code"],
+			"item_code": item_code,
 			"qty": flt(row["qty"]),
 			"s_warehouse": warehouse,
-			"uom": frappe.db.get_value("Item", row["item_code"], "stock_uom"),
+			"uom": frappe.db.get_value("Item", item_code, "stock_uom"),
 			"conversion_factor": 1,
 			"basic_rate": valuation_rate,
 			"cost_center": getattr(doc, "cost_center", None),
@@ -206,24 +207,30 @@ def make_repack(doc, consume_rows, produce_rows, warehouse, additional_cost=0,
 			item["serial_no"] = row["serial_no"]
 		se.append("items", item)
 
+	#for row in produce_rows:
+
+		#total_produced_qty += flt(row["qty"])
+
+	#produced_valuation_rate = 0
+	#if total_produced_qty:
+		#produced_valuation_rate = (total_consumed_value / total_produced_qty)
+
 	for row in produce_rows:
-
-		total_produced_qty += flt(row["qty"])
-
-	produced_valuation_rate = 0
-	if total_produced_qty:
-		produced_valuation_rate = (total_consumed_value / total_produced_qty)
-
-	for row in produce_rows:
-		valuation_rate = get_item_valuation_rate(row["item_code"],warehouse)
+		item_code = row["item_code"]
+		#valuation_rate = get_item_valuation_rate(item_code,warehouse)
+		if row.get("set_basic_rate_manually"):
+			valuation_rate = flt(row.get("basic_rate"))
+		else:
+			valuation_rate = get_item_valuation_rate(item_code,warehouse)
 		item = {
-			"item_code": row["item_code"],
+			"item_code": item_code,
 			"qty": flt(row["qty"]),
 			"t_warehouse": warehouse,
-			"uom": frappe.db.get_value("Item", row["item_code"], "stock_uom"),
+			"uom": frappe.db.get_value("Item", item_code, "stock_uom"),
 			"conversion_factor": 1,
 			"is_finished_item": 1,
-			"basic_rate": produced_valuation_rate,
+			"set_basic_rate_manually":1,
+			"basic_rate": valuation_rate,
 			"allow_zero_valuation_rate": 0,
 			"cost_center": getattr(doc, "cost_center", None),
 		}
@@ -232,12 +239,12 @@ def make_repack(doc, consume_rows, produce_rows, warehouse, additional_cost=0,
 			item["serial_no"] = row["serial_no"]
 		se.append("items", item)
 
-	if flt(additional_cost):
-		se.append("additional_costs", {
-			"expense_account": get_regrind_expense_account(doc.company),
-			"description": cost_description or _("Regrinding Charges"),
-			"amount": flt(additional_cost),
-		})
+	#if flt(additional_cost):
+	#	se.append("additional_costs", {
+	#		"expense_account": get_regrind_expense_account(doc.company),
+	#		"description": cost_description or _("Regrinding Charges"),
+	#		"amount": flt(additional_cost),
+	#	})
 
 	se.insert(ignore_permissions=True)
 	se.submit()

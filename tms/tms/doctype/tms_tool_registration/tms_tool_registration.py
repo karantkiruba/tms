@@ -133,8 +133,10 @@ class TMSToolRegistration(Document):
 			item.is_sales_item = 1
 			if condition.condition_name in ["Regrinding Pending", "Regrinding Finished"]:
 				item.valuation_rate = self.standard_regrind_cost
+				item.bin = self.rg_location
 			elif condition.condition_name == "New":
 				item.valuation_rate = self.standard_new_tool_cost
+				item.bin = self.new_location
 			else:
 				item.valuation_rate = 0
 			#item.valuation_rate = self.standard_new_tool_cost
@@ -185,14 +187,29 @@ class TMSToolRegistration(Document):
 						bom.item = item.item_code
 						bom.quantity = 1
 						bom.is_active = 1
-						bom.is_default = 1
+						bom.is_rgf = 1
 
 						bom.append("items", {
-							"item_code": pending_item,
+							"item_code": item.item_code,
 							"qty": 1,
+							"do_not_explode": 1,
 							"uom": self.stock_uom
 						})
 
+						bom.insert(ignore_permissions=True)
+						bom.submit()
+
+						bom = frappe.new_doc("BOM")
+						bom.item = item.item_code
+						bom.quantity = 1
+						bom.is_active = 1
+						bom.is_default = 1
+						bom.append("items", {
+							"item_code":pending_item,
+							"qty": 1,
+							#"do_not_explode": 1,
+							"uom": self.stock_uom
+						})
 						bom.insert(ignore_permissions=True)
 						bom.submit()
 			row.db_set("created", 1)

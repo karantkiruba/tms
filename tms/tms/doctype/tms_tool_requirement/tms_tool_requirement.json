@@ -13,6 +13,7 @@
   "posting_date",
   "company",
   "customer",
+  "customer_name",
   "cb_id",
   "tms_location",
   "required_date",
@@ -82,8 +83,6 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -225,12 +224,19 @@
    "fieldname": "naming_series_definition",
    "fieldtype": "Select",
    "label": "Naming Series Definition"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-29 00:14:29.438261",
+ "modified": "2026-09-15 12:54:09.819772",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Requirement",

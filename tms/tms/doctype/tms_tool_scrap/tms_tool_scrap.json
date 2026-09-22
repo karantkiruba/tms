@@ -12,6 +12,7 @@
   "posting_date",
   "company",
   "customer",
+  "customer_name",
   "cb_id",
   "tms_location",
   "scrap_warehouse",
@@ -72,8 +73,6 @@
   {
    "fieldname": "tms_location",
    "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -162,12 +161,19 @@
    "options": "TMS Tool Scrap",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-28 10:56:09.478312",
+ "modified": "2026-09-16 10:32:04.929465",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Scrap",

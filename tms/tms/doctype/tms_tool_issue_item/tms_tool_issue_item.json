@@ -11,6 +11,7 @@
   "qty",
   "issue_value",
   "cost_center",
+  "tms_tool_registration",
   "cb_1",
   "uom",
   "add_serial_no",
@@ -174,12 +175,20 @@
    "fieldtype": "Link",
    "label": "Cost Center",
    "options": "Cost Center"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "item_code.custom_tms_tool_registration",
+   "fieldname": "tms_tool_registration",
+   "fieldtype": "Link",
+   "label": "TMS Tool Registration",
+   "options": "TMS Tool Registration"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-09-04 11:19:47.771065",
+ "modified": "2026-09-12 13:58:26.272849",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Issue Item",

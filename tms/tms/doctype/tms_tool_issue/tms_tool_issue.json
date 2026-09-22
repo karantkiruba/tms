@@ -17,6 +17,7 @@
   "cb_id",
   "cpc_contract",
   "customer",
+  "customer_name",
   "tms_location",
   "cost_center",
   "transfer_out_location",
@@ -114,7 +115,6 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -364,6 +364,13 @@
    "fieldtype": "Float",
    "label": "Planned Tool Life",
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -378,7 +385,7 @@
    "link_fieldname": "tool_issue"
   }
  ],
- "modified": "2026-09-08 18:01:35.055551",
+ "modified": "2026-09-15 12:55:37.317702",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Issue",

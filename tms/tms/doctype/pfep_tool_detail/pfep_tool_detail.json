@@ -169,11 +169,11 @@
    "label": "Assemblies per Machine"
   },
   {
-   "fetch_from": "tool_type.number_of_indexes",
+   "allow_on_submit": 1,
+   "fetch_from": "tms_tool_registration.number_of_indexes",
    "fieldname": "number_of_indexes",
    "fieldtype": "Int",
-   "label": "Number of Indexes",
-   "reqd": 1
+   "label": "Number of Indexes"
   },
   {
    "fieldname": "cb_qty",
@@ -183,18 +183,21 @@
    "default": "0",
    "fieldname": "inserts_per_assembly",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Inserts per Assembly"
   },
   {
    "default": "0",
    "fieldname": "taps_qty",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Taps Quantity"
   },
   {
    "default": "0",
    "fieldname": "other_tooling_qty",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Other Tooling Quantity"
   },
   {
@@ -307,7 +310,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-08-29 18:04:47.022031",
+ "modified": "2026-09-15 10:33:55.797604",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "PFEP Tool Detail",

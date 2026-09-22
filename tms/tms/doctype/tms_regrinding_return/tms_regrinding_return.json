@@ -12,6 +12,7 @@
   "posting_date",
   "company",
   "customer",
+  "customer_name",
   "cb_id",
   "tms_location",
   "dispatch_date",
@@ -75,8 +76,6 @@
   {
    "fieldname": "tms_location",
    "fieldtype": "Link",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -182,12 +181,19 @@
    "fieldtype": "Link",
    "label": "Transfer Out",
    "options": "Transfer Out"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-22 18:04:15.099098",
+ "modified": "2026-09-16 10:31:02.974441",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Regrinding Return",

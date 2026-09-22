@@ -143,7 +143,7 @@ class TMSUsedToolInspection(Document):
 		stock_entries = []
 
 		for row in rows:
-			scrap_item = get_condition_item(row.item_code, "SCR")
+			scrap_item = get_condition_item(row.physical_tool_code, "SCR")
 
 			if not scrap_item:
 				frappe.throw(

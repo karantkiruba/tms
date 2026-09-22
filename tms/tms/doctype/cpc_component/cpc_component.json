@@ -11,6 +11,7 @@
   "component_code",
   "component_name",
   "customer",
+  "customer_name",
   "tms_location",
   "cb_id",
   "customer_part_number",
@@ -56,8 +57,6 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -125,11 +124,18 @@
    "fieldname": "remarks",
    "fieldtype": "Small Text",
    "label": "Remarks"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-26 16:42:40.887677",
+ "modified": "2026-09-16 10:27:37.679853",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "CPC Component",

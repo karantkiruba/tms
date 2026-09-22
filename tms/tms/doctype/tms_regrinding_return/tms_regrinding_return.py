@@ -71,6 +71,7 @@ class TMSRegrindingReturn(Document):
 			cycle.update({
 				"company": self.company,
 				"customer": self.customer,
+				"transfer_out": self.transfer_out,
 				"tms_location": self.tms_location,
 				"regrinding_return": self.name,
 				"physical_tool_code": row.physical_tool_code,

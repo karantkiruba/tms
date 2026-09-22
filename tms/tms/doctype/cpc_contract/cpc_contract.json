@@ -8,8 +8,10 @@
  "engine": "InnoDB",
  "field_order": [
   "sb_id",
+  "naming_series_definition",
   "naming_series",
   "customer",
+  "customer_name",
   "tms_location",
   "company",
   "cb_id",
@@ -30,6 +32,7 @@
   "tax_template",
   "cb_acc",
   "cost_center",
+  "branch",
   "sb_more",
   "remarks",
   "amended_from"
@@ -60,8 +63,6 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -197,12 +198,29 @@
    "options": "CPC Contract",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "naming_series_definition",
+   "fieldtype": "Select",
+   "label": "Naming Series Definition"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-27 15:06:33.386975",
+ "modified": "2026-09-17 10:14:29.223115",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "CPC Contract",

@@ -16,6 +16,7 @@
   "tms_tool_return",
   "cb_id",
   "customer",
+  "customer_name",
   "tms_location",
   "inspection_date",
   "inspector",
@@ -86,7 +87,6 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -222,12 +222,19 @@
    "fieldtype": "Link",
    "label": "TMS Tool Return",
    "options": "TMS Tool Return"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-09-08 15:51:09.822350",
+ "modified": "2026-09-15 12:58:14.032515",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Used Tool Inspection",

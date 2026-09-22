@@ -1,0 +1,67 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-09-15 12:12:17.225192",
+ "disable_prepared_report_automation": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "doctype_to_sync": [],
+ "filters": [
+  {
+   "default": "Today",
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  },
+  {
+   "default": "Today",
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-09-15 12:12:17.225192",
+ "modified_by": "Administrator",
+ "module": "TMS",
+ "name": "Tool Removal",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT\r\n    TR.name AS \"Document No:Link/Tool Removal:150\",\r\n    TR.posting_date AS \"Date:Date:100\",\r\n    TR.branch AS \"Branch:120\",\r\n    TR.customer AS \"Customer:Link/Customer:150\",\r\n    TR.customer_name AS \"Customer Name:200\",\r\n    TR.tool_installation AS \"Installation:150\",\r\n    TR.tool_issue AS \"Issue:150\",\r\n    TR.cpc_component AS \"Component:150\",\r\n    TR.machine AS \"Machine:150\",\r\n    TR.operation AS \"Operation:150\",\r\n    TR.tool_type AS \"Tool Type:120\",\r\n    TR.item_code AS \"Item Code:Link/Item:150\",\r\n    TR.physical_tool_code AS \"Physical Tool:150\",\r\n    TR.planned_tool_life AS \"Planned Tool Life:120\",\r\n    TR.actual_tool_life AS \"Actual Tool Life:120\",\r\n    TR.starting_production_counter AS \"Start Production Counter:150\",\r\n    TR.ending_production_counter AS \"End Production Counter:150\",\r\n    TR.removal_reason AS \"Removal Reason:200\",\r\n    TC.condition_name AS \"Condition:150\",\r\n    TR.tool_life_status AS \"Status:120\"\r\n\r\nFROM `tabTMS Tool Removal` TR\r\n\r\nLEFT JOIN `tabTMS Tool Condition` TC\r\n    ON TC.name = TR.current_condition\r\n\r\nWHERE TR.posting_date BETWEEN %(from_date)s AND %(to_date)s",
+ "ref_doctype": "TMS Tool Removal",
+ "report_name": "Tool Removal",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "TMS Manager"
+  },
+  {
+   "role": "TMS Site User"
+  },
+  {
+   "role": "TMS Site Supervisor"
+  },
+  {
+   "role": "TMS Commercial User"
+  },
+  {
+   "role": "TMS Engineering User"
+  },
+  {
+   "role": "TMS Head Office User"
+  }
+ ],
+ "snapshot_report": 0,
+ "timeout": 0
+}

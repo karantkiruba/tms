@@ -13,9 +13,11 @@
   "posting_date",
   "company",
   "customer",
+  "customer_name",
   "cb_id",
   "tms_location",
   "regrinding_return",
+  "transfer_out",
   "status",
   "cost_center",
   "transfer_out_location",
@@ -98,13 +100,13 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
   {
    "fieldname": "regrinding_return",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Regrinding Return",
    "options": "TMS Regrinding Return",
    "read_only": 1
@@ -364,12 +366,25 @@
    "fieldtype": "Table",
    "label": "Regrind Count Detail",
    "options": "Regrind Count Detail"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "transfer_out",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Transfer Out",
+   "options": "Transfer Out"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-09-02 01:23:17.867867",
+ "modified": "2026-09-16 10:16:43.085867",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Regrind Cycle",

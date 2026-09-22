@@ -15,6 +15,7 @@
   "company",
   "cb_id",
   "customer",
+  "customer_name",
   "tms_location",
   "receipt_type",
   "cost_center",
@@ -89,8 +90,6 @@
    "fieldname": "tms_location",
    "fieldtype": "Link",
    "hidden": 1,
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location"
   },
@@ -227,6 +226,7 @@
   {
    "fieldname": "naming_series_definition",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "Naming Series Definition"
   },
   {
@@ -249,12 +249,19 @@
    "label": "Branch",
    "options": "Branch",
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-08-31 10:25:54.196618",
+ "modified": "2026-09-17 10:42:29.416348",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Receipt",

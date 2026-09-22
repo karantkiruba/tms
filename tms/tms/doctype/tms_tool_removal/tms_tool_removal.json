@@ -15,6 +15,7 @@
   "tool_installation",
   "cb_id",
   "customer",
+  "customer_name",
   "tms_location",
   "tool_issue",
   "cost_center",
@@ -99,7 +100,6 @@
   {
    "fieldname": "tms_location",
    "fieldtype": "Link",
-   "in_standard_filter": 1,
    "label": "TMS Customer Location",
    "options": "TMS Customer Location",
    "read_only": 1
@@ -314,6 +314,12 @@
    "label": "Branch",
    "options": "Branch",
    "read_only": 1
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -324,7 +330,7 @@
    "link_fieldname": "tool_removal"
   }
  ],
- "modified": "2026-09-08 15:28:21.208474",
+ "modified": "2026-09-15 12:57:42.075071",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Removal",
@@ -420,7 +426,7 @@
   }
  ],
  "row_format": "Dynamic",
- "search_fields": "item_code,serial_no,cpc_component",
+ "search_fields": "item_code,serial_no,cpc_component,item_code,ending_production_counter",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
