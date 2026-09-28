@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2026-08-18 20:10:10.108020",
@@ -20,6 +21,7 @@
   "registration_status",
   "new_location",
   "rg_location",
+  "transfer_out_location",
   "sb_cond",
   "fetch_conditions",
   "conditions_html",
@@ -304,12 +306,18 @@
    "fieldname": "rg_location",
    "fieldtype": "Data",
    "label": "RG Location"
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer Out Location",
+   "options": "Transfer Out Location"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-09-16 10:11:07.610197",
+ "modified": "2026-09-28 12:09:43.967592",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Registration",

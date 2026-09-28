@@ -115,171 +115,114 @@ class TMSToolRegistration(Document):
 		created = 0
 
 		new_hsn = None
-		new_item = None
-
-		for row in self.conditions:
-			condition = frappe.get_cached_doc("TMS Tool Condition",row.tool_condition)
-
-			if condition.condition_name == "New":
-				if frappe.db.exists("Item", row.item_code):
-					#new_item = frappe.get_doc("Item", row.item_code)
-
-				#if new_item.meta.has_field("gst_hsn_code"):
-					new_hsn = frappe.db.get_value("Item",row.item_code,"gst_hsn_code")
-
-			break
-
-		if not new_hsn:
-			new_hsn = (self.gst_hsn_code or frappe.db.get_single_value("TMS Settings","default_hsn_code"))
-
 		for row in self.conditions:
 			#if frappe.db.exists("Item", row.item_code):
 			#	row.db_set("created", 1)
 			#	continue
 
 			condition = frappe.get_cached_doc("TMS Tool Condition", row.tool_condition)
-			if frappe.db.exists("Item", row.item_code):
-				item = frappe.get_doc("Item", row.item_code)
+			if condition.condition_name == "New":
+				if frappe.db.exists("Item", row.item_code):
+					new_item = frappe.get_doc("Item", row.item_code)
 
-				if condition.condition_name in ["Regrinding Pending","Regrinding Finished"]:
-					item.valuation_rate = self.standard_regrind_cost
-					item.bin = self.rg_location
+					if new_item.meta.has_field("gst_hsn_code"):
+						new_hsn = new_item.gst_hsn_code
 
-				elif condition.condition_name == "New":
-					item.valuation_rate = self.standard_new_tool_cost
-					item.bin = self.new_location
+				break
 
-				else:
-					item.valuation_rate = 0
-
-				item.custom_is_regrindable = self.is_regrindable
-				if item.meta.has_field("tms_is_tool"):
-					item.tms_is_tool = 1
-				if item.meta.has_field("tms_tool_type"):
-					item.tms_tool_type = self.tool_type
-				if item.meta.has_field("tms_tool_condition"):
-					item.tms_tool_condition = row.tool_condition
-				if item.meta.has_field("custom_tms_tool_registration"):
-					item.custom_tms_tool_registration = self.name
-
-				if item.meta.has_field("tms_physical_tool_code"):
-					item.tms_physical_tool_code = self.physical_tool_code
-				if item.meta.has_field("brand"):
-					item.brand = self.make
-
-				if new_hsn and item.meta.has_field("gst_hsn_code"):
-					item.gst_hsn_code = new_hsn
-
-				if condition.serialised:
-					item.has_serial_no = 1
-
-					if row.serial_no_series:
-						item.serial_no_series = row.serial_no_series
-				item.save(ignore_permissions=True)
-				row.db_set("created", 1)
+			item = frappe.new_doc("Item")
+			item.item_code = row.item_code
+			item.item_name = "{0} - {1}".format(
+				self.tool_description or self.tool_type, condition.condition_name
+			)
+			item.description = self.tool_description or self.tool_type
+			item.item_group = self.item_group
+			item.stock_uom = self.stock_uom
+			item.is_stock_item = 1
+			item.include_item_in_manufacturing = 1
+			item.is_purchase_item = 1 if condition.condition_code == "N" else 0
+			item.is_sales_item = 1
+			if condition.condition_name in ["Regrinding Pending", "Regrinding Finished"]:
+				item.valuation_rate = self.standard_regrind_cost
+				item.bin = self.rg_location
+			elif condition.condition_name == "New":
+				item.valuation_rate = self.standard_new_tool_cost
+				item.bin = self.new_location
 			else:
-				item = frappe.new_doc("Item")
-				item.item_code = row.item_code
-				item.item_name = "{0} - {1}".format(
-					self.tool_description or self.tool_type, condition.condition_name
-				)
-				item.description = self.tool_description or self.tool_type
-				item.item_group = self.item_group
-				item.stock_uom = self.stock_uom
-				item.is_stock_item = 1
-				item.include_item_in_manufacturing = 1
-				item.is_purchase_item = 1 if condition.condition_code == "N" else 0
-				item.is_sales_item = 1
-				if condition.condition_name in ["Regrinding Pending", "Regrinding Finished"]:
-					item.valuation_rate = self.standard_regrind_cost
-					item.bin = self.rg_location
-				elif condition.condition_name == "New":
-					item.valuation_rate = self.standard_new_tool_cost
-					item.bin = self.new_location
-				else:
-					item.valuation_rate = 0
+				item.valuation_rate = 0
 			#item.valuation_rate = self.standard_new_tool_cost
 			#item.valuation_rate = self.standard_regrind_cost if condition.condition_name in ["Regrinding Pending", "Regrinding Finished"] else self.standard_new_tool_cost
-					item.custom_is_regrindable = self.is_regrindable
+			item.custom_is_regrindable = self.is_regrindable
 
-				if condition.serialised:
-					item.has_serial_no = 1
-					item.serial_no_series = row.serial_no_series
+			if condition.serialised:
+				item.has_serial_no = 1
+				item.serial_no_series = row.serial_no_series
 
-				hsn = self.gst_hsn_code or frappe.db.get_single_value(
-					"TMS Settings", "default_hsn_code"
-				)
-				if new_hsn and item.meta.has_field("gst_hsn_code"):
-					item.gst_hsn_code = new_hsn
-				else:
-					item.gst_hsn_code = hsn
+			hsn = self.gst_hsn_code or frappe.db.get_single_value(
+				"TMS Settings", "default_hsn_code"
+			)
+			if hsn and item.meta.has_field("gst_hsn_code"):
+				item.gst_hsn_code = hsn
 
-				item.tms_is_tool = 1
-				item.tms_tool_type = self.tool_type
-				item.tms_tool_condition = row.tool_condition
-				item.custom_tms_tool_registration = self.name
-				item.tms_physical_tool_code = self.physical_tool_code
-				item.brand = self.make
-				item.append("taxes", {
-					"item_tax_template": "GST 18% - UTM",
-					"tax_category": "In-State"
-				})
-				item.append("taxes", {
-					"item_tax_template": "GST 18% - UTM",
-					"tax_category": "Out-State"
-				})
-				item.insert(ignore_permissions=True)
-
+			item.tms_is_tool = 1
+			item.tms_tool_type = self.tool_type
+			item.tms_tool_condition = row.tool_condition
+			item.custom_tms_tool_registration = self.name
+			item.tms_physical_tool_code = self.physical_tool_code
+			item.brand = self.make
+			item.append("taxes", {
+				"item_tax_template": "GST 18% - UTM",
+				"tax_category": "In-State"
+			})
+			item.append("taxes", {
+				"item_tax_template": "GST 18% - UTM",
+				"tax_category": "Out-State"
+			})
+			item.insert(ignore_permissions=True)
 			if condition.condition_name == "Regrinding Finished":
-				rgf_item = row.item_code
 				frappe.db.set_value("Item",item.name,"is_sub_contracted_item",1)
-				rgp_item = None
-				rgf_item = None
+				pending_condition = frappe.db.get_value(
+						"TMS Tool Condition",
+						{"condition_name": "Regrinding Pending"},
+						"name"
+				)
 
-				for condition_row in self.conditions:
-					rgp_condition = frappe.get_cached_doc("TMS Tool Condition",condition_row.tool_condition)
+				pending_item = frappe.db.get_value(
+						"Item",{"tms_tool_type": self.tool_type,"tms_tool_condition": pending_condition},"name")
 
-					if rgp_condition.condition_name == "Regrinding Pending":
-						rgp_item = condition_row.item_code
-
-
-				#pending_item = frappe.db.get_value(
-				#		"Item",{"tms_tool_type": self.tool_type,"tms_tool_condition": pending_condition},"name")
-
-				#if pending_item:
+				if pending_item:
 					#frappe.db.set_value("Item",pending_item,"is_sub_contracted_item",1)
 
-				
-				if not frappe.db.exists("BOM",{"item": item.item_code,"is_active": 1,"is_default": 1}):
-					bom = frappe.new_doc("BOM")
-					bom.item = item.item_code
-					bom.quantity = 1
-					bom.is_active = 1
-					bom.is_rgf = 1
+					if not frappe.db.exists("BOM",{"item": item.item_code,"is_active": 1,"is_default": 1}):
+						bom = frappe.new_doc("BOM")
+						bom.item = item.item_code
+						bom.quantity = 1
+						bom.is_active = 1
+						bom.is_rgf = 1
 
-					bom.append("items", {
-						"item_code": item.item_code,
-						"qty": 1,
-						"do_not_explode": 1,
-						"uom": self.stock_uom
-					})
+						bom.append("items", {
+							"item_code": item.item_code,
+							"qty": 1,
+							"do_not_explode": 1,
+							"uom": self.stock_uom
+						})
 
-					bom.insert(ignore_permissions=True)
-					bom.submit()
+						bom.insert(ignore_permissions=True)
+						bom.submit()
 
-					bom = frappe.new_doc("BOM")
-					bom.item = item.item_code
-					bom.quantity = 1
-					bom.is_active = 1
-					bom.is_default = 1
-					bom.append("items", {
-						"item_code":rgp_item,
-						"qty": 1,
-						#"do_not_explode": 1,
-						"uom": self.stock_uom
-					})
-					bom.insert(ignore_permissions=True)
-					bom.submit()
+						bom = frappe.new_doc("BOM")
+						bom.item = item.item_code
+						bom.quantity = 1
+						bom.is_active = 1
+						bom.is_default = 1
+						bom.append("items", {
+							"item_code":pending_item,
+							"qty": 1,
+							#"do_not_explode": 1,
+							"uom": self.stock_uom
+						})
+						bom.insert(ignore_permissions=True)
+						bom.submit()
 			row.db_set("created", 1)
 			created += 1
 
