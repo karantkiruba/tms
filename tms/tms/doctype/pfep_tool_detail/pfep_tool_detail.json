@@ -87,8 +87,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Tool Type",
-   "options": "TMS Tool Type",
-   "reqd": 1
+   "options": "TMS Tool Type"
   },
   {
    "fetch_from": "tool_type.tool_category",
@@ -303,14 +302,13 @@
    "fieldname": "tms_tool_registration",
    "fieldtype": "Link",
    "label": "TMS Tool Registration",
-   "options": "TMS Tool Registration",
-   "reqd": 1
+   "options": "TMS Tool Registration"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-09-15 10:33:55.797604",
+ "modified": "2026-09-28 18:42:26.581543",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "PFEP Tool Detail",

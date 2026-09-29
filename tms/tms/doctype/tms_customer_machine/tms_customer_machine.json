@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "format:{tms_location}-{machine_code}",
  "creation": "2026-08-18 19:54:28.589058",
@@ -11,6 +12,7 @@
   "machine_name",
   "tms_location",
   "production_line",
+  "transfer_out_location",
   "cb_1",
   "customer",
   "machine_type",
@@ -92,11 +94,18 @@
    "fieldname": "remarks",
    "fieldtype": "Small Text",
    "label": "Remarks"
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer Out Location",
+   "options": "Transfer Out Location",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-15 12:50:36.773417",
+ "modified": "2026-09-28 13:52:12.353354",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Customer Machine",

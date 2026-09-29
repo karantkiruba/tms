@@ -20,6 +20,7 @@
   "status",
   "branch",
   "cost_center",
+  "transfer_out_location",
   "sb_validity",
   "effective_from",
   "effective_to",
@@ -147,6 +148,7 @@
    "label": "Tool Plan"
   },
   {
+   "allow_bulk_edit": 1,
    "fieldname": "tools",
    "fieldtype": "Table",
    "label": "Tools",
@@ -234,12 +236,19 @@
    "fieldtype": "Link",
    "label": "Cost Center",
    "options": "Cost Center"
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer Out Location",
+   "options": "Transfer Out Location",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-09-17 10:18:53.477790",
+ "modified": "2026-09-28 17:53:36.737779",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "PFEP Tooling Plan",

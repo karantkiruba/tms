@@ -10,6 +10,7 @@
   "line_code",
   "line_name",
   "tms_location",
+  "transfer_out_location",
   "cb_1",
   "customer",
   "is_active",
@@ -59,11 +60,18 @@
    "fieldname": "description",
    "fieldtype": "Small Text",
    "label": "Description"
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer out location",
+   "options": "Transfer Out Location",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-15 13:05:21.860616",
+ "modified": "2026-09-28 13:51:58.557327",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Production Line",

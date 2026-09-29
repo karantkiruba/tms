@@ -20,6 +20,7 @@
   "status",
   "source_warehouse",
   "target_warehouse",
+  "transfer_out_location",
   "sb_basis",
   "cpc_component",
   "requirement_source",
@@ -231,12 +232,19 @@
    "fieldtype": "Data",
    "label": "Customer Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer Out Location",
+   "options": "Transfer Out Location",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-09-15 12:54:09.819772",
+ "modified": "2026-09-28 11:25:59.734607",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Requirement",

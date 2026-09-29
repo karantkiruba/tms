@@ -17,6 +17,7 @@
   "assemblies_per_machine",
   "tms_tool_registration",
   "cost_center",
+  "tms_location",
   "sb_calc",
   "gross_requirement",
   "safety_stock",
@@ -243,12 +244,19 @@
    "fieldtype": "Link",
    "label": "Cost Center",
    "options": "Cost Center"
+  },
+  {
+   "fieldname": "tms_location",
+   "fieldtype": "Link",
+   "label": "TMS Customer Location",
+   "options": "TMS Customer Location",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-09-03 10:43:34.151665",
+ "modified": "2026-09-24 11:39:24.070686",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "TMS Tool Requirement Item",

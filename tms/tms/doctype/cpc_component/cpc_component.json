@@ -13,6 +13,7 @@
   "customer",
   "customer_name",
   "tms_location",
+  "transfer_out_location",
   "cb_id",
   "customer_part_number",
   "drawing_number",
@@ -131,11 +132,18 @@
    "fieldtype": "Data",
    "label": "Customer Name",
    "read_only": 1
+  },
+  {
+   "fieldname": "transfer_out_location",
+   "fieldtype": "Link",
+   "label": "Transfer Out Location",
+   "options": "Transfer Out Location",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-16 10:27:37.679853",
+ "modified": "2026-09-28 11:23:00.265155",
  "modified_by": "Administrator",
  "module": "TMS",
  "name": "CPC Component",
